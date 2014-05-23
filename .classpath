@@ -7,7 +7,10 @@
 			<attribute name="owner.project.facets" value="java"/>
 		</attributes>
 	</classpathentry>
-	<classpathentry kind="lib" path="/Users/coronaluo/Downloads/apache-tomcat-7.0.53/lib/servlet-api.jar"/>
-	<classpathentry kind="lib" path="/Users/coronaluo/Workspace/cs886 w14/twitter4j-4/lib/twitter4j-core-4.0.1.jar"/>
+	<classpathentry kind="lib" path="libs/servlet-api.jar"/>
+	<classpathentry kind="lib" path="libs/snowball-20051019.jar"/>
+	<classpathentry kind="lib" path="libs/twitter4j-core-4.0.1.jar"/>
+	<classpathentry kind="lib" path="libs/weka.jar"/>
+	<classpathentry kind="lib" path="libs/org.tartarus.snowball.jar"/>
 	<classpathentry kind="output" path="war/WEB-INF/classes"/>
 </classpath>

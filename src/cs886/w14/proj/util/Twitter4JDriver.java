@@ -14,22 +14,22 @@ import twitter4j.TwitterFactory;
 import twitter4j.auth.OAuth2Token;
 import twitter4j.conf.ConfigurationBuilder;
 
-public class Twitter4J {
+public class Twitter4JDriver {
 	/**
 	 * logger on the server util side
 	 */
-	private final Logger logger = Logger.getLogger(Twitter4J.class.getName());
+	private final Logger logger = Logger.getLogger(Twitter4JDriver.class.getName());
 	
 	/**
 	 * Singleton
 	 */
-	private static final Twitter4J INSTANCE = new Twitter4J();
+	private static final Twitter4JDriver INSTANCE = new Twitter4JDriver();
 
 	private Twitter twitter = null;
 	
-	private Twitter4J() {}
+	private Twitter4JDriver() {}
 	
-	public static Twitter4J getInstance() {
+	public static Twitter4JDriver getInstance() {
 		return INSTANCE;
 	}
 	
@@ -79,29 +79,6 @@ public class Twitter4J {
 		return tweets;
 	}
 	
-	/*
-	 * filter tweets without loc info
-	 * TODO
-	 */
-	public String getTweetsLocInfo(ArrayList<Status> tweets) {
-		String rtn = "";
-		for (int i = 0; i < tweets.size(); i++) {
-			Status t = (Status) tweets.get(i);
-			GeoLocation loc = t.getGeoLocation();
-			String user = t.getUser().getScreenName();
-			String msg = t.getText();
-			if (loc != null) {
-				Double lat = t.getGeoLocation().getLatitude();
-				Double lon = t.getGeoLocation().getLongitude();
-				rtn += i + " USER: " + user + " wrote: " + msg
-						+ " located at " + lat + ", " + lon;
-			} else
-				rtn += i + " USER: " + user + " wrote: " + msg;
-		}
-		
-		return rtn;
-	}
-
 	/*
 	 * connect to the Twitter Inc. server
 	 */
