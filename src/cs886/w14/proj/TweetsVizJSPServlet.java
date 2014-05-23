@@ -22,7 +22,7 @@ public class TweetsVizJSPServlet extends HttpServlet {
 	
 	public void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException {
 		String keyword = req.getParameter("keyword").toString();
-		String results = keyword;
+		String results = keyword + "\n";
 		if (keyword.equals("")) {
 			 results = "no input";
 		} else {
@@ -31,6 +31,7 @@ public class TweetsVizJSPServlet extends HttpServlet {
 		    logger.log(Level.INFO, "-------revceived tweets size: " + rawtweets.size());
 		    
 		    List<ParsedTweet> tweets = ParsedTweet.ParseTweetsFromWeb(rawtweets);
+		    logger.log(Level.INFO, "-------parsed tweets size: " + tweets.size());
 		    for (ParsedTweet t : tweets) {
 		    	results += t.toString();
 		    }

@@ -7,13 +7,11 @@ import java.util.HashSet;
 import java.util.List;
 
 import org.tartarus.snowball.EnglishSnowballStemmerFactory;
-import org.tartarus.snowball.SnowballStemmer;
 import org.tartarus.snowball.util.StemmerException;
 
 import twitter4j.GeoLocation;
 import twitter4j.Status;
 import weka.core.Stopwords;
-import weka.core.stemmers.Stemmer;
 
 public class ParsedTweet {
 	public String user;
@@ -21,6 +19,7 @@ public class ParsedTweet {
 	public double []loc; // latitude and longitude
 	public String msg;
 	public List<String> bagOfWords;
+	public String lang; // two-letter iso language code
 	
 	public List<ParsedTweet> retweets;
 	boolean numOfFavorites;
@@ -35,25 +34,58 @@ public class ParsedTweet {
 			e.printStackTrace();
 		}
 		
-		/* stemmer and weka jar only support static access
-		SnowballStemmer stemmer = new SnowballStemmer();
-		stemmer.setStemmer("english");
-		*/
 	    List<ParsedTweet> parsedTweets = new ArrayList<ParsedTweet>();
 	    for (Status t : tweets) {
 	    	ParsedTweet pt = new ParsedTweet(t);
-	    	pt.computeBagOfWords(splitters, blackList, stopwords);
-	    	parsedTweets.add(pt);
+	    	if (pt.lang.startsWith("en")) parsedTweets.add(pt);
 	    }
+	    
+	    computeBagOfWords(parsedTweets, splitters, blackList, stopwords, EnglishSnowballStemmerFactory.getInstance());
 	    return parsedTweets;
 	  }
+	
+	/*
+	 * get bag of words from a tweet msg
+	 */
+	public static void computeBagOfWords(List<ParsedTweet> parsedTweets,
+			String splitters, List<String> blackList, Stopwords stopwords,
+			EnglishSnowballStemmerFactory stemmer) {
+		for (ParsedTweet pt : parsedTweets) {
+			for (int i = 0; i < splitters.length(); i++) {
+				pt.msg = pt.msg.replace(splitters.charAt(i), ' ');
+			}
+			String[] tokens = pt.msg.split(" ");
+			HashSet<String> tokenSet = new HashSet<String>();
+			for (String token : tokens) {
+				boolean legal = !stopwords.is(token);
+				for (String regex : blackList) {
+					if (token.matches(regex)) {
+						legal = false;
+						break;
+					}
+				}
+				if (!legal)
+					continue;
+				try {
+					String stemmedToken = stemmer.process(token);
+					if (!stopwords.is(stemmedToken)
+							&& !tokenSet.contains(stemmedToken)) {
+						tokenSet.add(stemmedToken);
+					}
+				} catch (StemmerException e) {
+					e.printStackTrace();
+				}
+			}
+			pt.bagOfWords = new ArrayList<String>(tokenSet);
+		}
+	}
 	
 	public ParsedTweet(Status t) {
 		user = t.getUser().getScreenName();
 		dateTime = t.getCreatedAt();
 		msg = t.getText();
-		
 		loc = getTweetLocInfo(t);
+		lang = t.getLang();
 	}
 
 	public String toString() {
@@ -61,48 +93,11 @@ public class ParsedTweet {
 	        + "Date and Time = " + dateTime + "\r\n"
 	        + "location = " + loc.toString() + "\r\n"
 	        + "msg = " + msg + "\r\n"
+	        + "lang = " + lang + "\r\n"
 	        + "bagOfWords = " + bagOfWords.toString() + "\r\n"
 	        + "======================================================================\r\n";
-	  }
-	
-	
-	/*
-	 * get bag of words from a tweet msg
-	 */
-	public void computeBagOfWords(String splitters, List<String> blackList, Stopwords stopwords){// , Stemmer stemmer) {
-
-		for (int i = 0; i < splitters.length(); i++) {
-			msg = msg.replace(splitters.charAt(i), ' ');
-		}
-		String[] tokens = msg.split(" ");
-		HashSet<String> tokenSet = new HashSet<String>();
-		for (String token : tokens) {
-			boolean legal = !stopwords.is(token);
-			for (String regex : blackList) {
-				if (token.matches(regex)) {
-					legal = false;
-					break;
-				}
-			}
-			if (!legal) continue;
-			// String stemmedToken = stemmer.stem(token);
-			String stemmedToken;
-			try {
-				stemmedToken = EnglishSnowballStemmerFactory.getInstance().process(token);
-				if (!stopwords.is(stemmedToken) && !tokenSet.contains(stemmedToken)) {
-					tokenSet.add(stemmedToken);
-				}
-			} catch (StemmerException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-		}
-		bagOfWords = new ArrayList<String>(tokenSet);
 	}
 	
-	/*
-	 * get loc info from a tweet msg
-	 */
 	private double[] getTweetLocInfo(Status t) {
 		double[] loc = { 0, 0 };
 		GeoLocation locInfo = t.getGeoLocation();
