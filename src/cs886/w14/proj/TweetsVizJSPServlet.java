@@ -26,7 +26,7 @@ public class TweetsVizJSPServlet extends HttpServlet {
 		String keyword = req.getParameter("keyword").toString();
 		Stopwords stopwords = new Stopwords();
 		try {
-			stopwords.read("./res/stopwords.txt");
+			stopwords.read("./nlp/stopwords.txt");
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
