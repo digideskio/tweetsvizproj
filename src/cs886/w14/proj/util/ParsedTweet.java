@@ -3,6 +3,8 @@ package cs886.w14.proj.util;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import twitter4j.GeoLocation;
 import twitter4j.Status;
@@ -23,11 +25,10 @@ public class ParsedTweet {
 	public ParsedTweet(Status t) {
 		user = t.getUser().getScreenName();
 		dateTime = t.getCreatedAt();
-		msg = t.getText();
+		msg = removeUrl(t.getText());
 		loc = getTweetLocInfo(t);
 		lang = t.getLang();
 		bagOfEmoticons = new ArrayList<String>();
-		bagOfEmoticons.add("");
 	}
 
 	public String toString() {
@@ -50,4 +51,22 @@ public class ParsedTweet {
 		}
 		return loc;
 	}
+	
+	/*
+	 * remove hyper links within msg
+	 */
+	private String removeUrl(String text)
+    {
+        String rtn = text;
+        String urlPattern = "((https?|ftp|gopher|telnet|file|Unsure|http):((//)|(\\\\))+[\\w\\d:#@%/;$()~_?\\+-=\\\\\\.&]*)";
+        Pattern p = Pattern.compile(urlPattern, Pattern.CASE_INSENSITIVE);
+        Matcher m = p.matcher(rtn);
+        int i = 0;
+        while (m.find()) {
+            rtn = rtn.replaceAll(m.group(i),"").trim();
+            i++;
+        }
+        return rtn;
+    }
+    
 }

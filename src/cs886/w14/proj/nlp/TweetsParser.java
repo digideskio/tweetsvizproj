@@ -7,12 +7,17 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashSet;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import org.tartarus.snowball.EnglishSnowballStemmerFactory;
 import org.tartarus.snowball.util.StemmerException;
 
 import twitter4j.Status;
 import weka.core.Stopwords;
+import cs886.w14.proj.TweetsVizJSPServlet;
 import cs886.w14.proj.util.ParsedTweet;
 import cs886.w14.proj.util.Twitter4JDriver;
 
@@ -20,42 +25,19 @@ public class TweetsParser {
 	public static String splitters = "\r\n\t.,;:'\"()?!/[]=_`~#";
 	public static List<String> blackList = Arrays.asList("\\d*", ".{15}.+", ".", ".*--.*", ".*&.*", ".*@.*");
 	public static List<String> emoticonsList = Arrays.asList(":)", ":(", ";)", ":P", "8)", ":O", ":S", ":'(", "XD", "XP", "^_^", "^.^", "^_~", ">_<", "=_=", "-_-", "-_-'", "^_^'", "^_^;;", "Â_Â", "<_<", ";_;", "o_O", "O_O", "O_<", "._.", "$_$", "x_x", "9_9", "*_*", "t(-_-t)", ",|,,(-_-),,|,", "=^_^=", "u.u", "\\m/>_<\\m/");
+	private final static Logger logger = Logger.getLogger(TweetsParser.class.getName());
 	
 	public static List<ParsedTweet> ParseTweetsFromWeb (ArrayList<Status> tweets, Stopwords stopwords) {
-		outputResultsToLocal(tweets);
 	    List<ParsedTweet> parsedTweets = new ArrayList<ParsedTweet>();
 	    for (Status t : tweets) {
 	    	ParsedTweet pt = new ParsedTweet(t);
 	    	if (pt.lang.equals("en")) parsedTweets.add(pt);
 	    }
 	    computeBagOfWords(parsedTweets, stopwords, EnglishSnowballStemmerFactory.getInstance());
+	    
 	    return parsedTweets;
 	  }
 	
-	/**
-	 * TEST
-	 * @param tweets
-	 */
-	public static void outputResultsToLocal (ArrayList<Status> tweets) {
-		try {
-			PrintWriter writer = new PrintWriter("results.txt", "UTF-8");
-			for (Status t : tweets) {
-		    	if (t.getLang().equals("en")) {
-		    		writer.println("user = " + t.getUser());
-		    		writer.println("msg = " + t.getText());
-		    		writer.println("lang= "+ t.getLang());
-		    		writer.println("==================================\r\n");
-		    	}
-		    }
-			writer.close();
-		} catch (FileNotFoundException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (UnsupportedEncodingException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-	}
 	/*
 	 * get bag of words from a tweet msg
 	 */
@@ -95,5 +77,5 @@ public class TweetsParser {
 			pt.bagOfWords = new ArrayList<String>(tokenSet);
 		}
 	}
-
+	
 }

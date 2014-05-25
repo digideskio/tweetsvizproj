@@ -52,7 +52,7 @@ public class Twitter4JDriver {
 	 * search more than 100 tweets
 	 */
 	public ArrayList<Status> getQueryResults(String keyword) {
-		
+		logger.log(Level.INFO, "-------keyword:" + keyword);
 		Query query = new Query(keyword);
 		long lastID = Long.MAX_VALUE;
 		ArrayList<Status> tweets = new ArrayList<Status>();

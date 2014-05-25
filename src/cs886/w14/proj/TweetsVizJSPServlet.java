@@ -38,7 +38,7 @@ public class TweetsVizJSPServlet extends HttpServlet {
 			results = "keyword belong to the list of stopword, please enter another keyword to avoid meaningless serach query, thank you!";
 		} else {
 			Twitter4JDriver.getInstance().init();
-		    ArrayList<Status> rawtweets = Twitter4JDriver.getInstance().getQueryResults("keyword");
+		    ArrayList<Status> rawtweets = Twitter4JDriver.getInstance().getQueryResults(keyword);
 		    logger.log(Level.INFO, "-------revceived tweets size: " + rawtweets.size());
 		    
 		    // FOR MINGYU LIU TO START
@@ -47,6 +47,7 @@ public class TweetsVizJSPServlet extends HttpServlet {
 		    
 		    // TEST
 		    for (ParsedTweet t : tweets) {
+		    	logger.log(Level.INFO, t.toString());
 		    	results += t.toString();
 		    }
 		}
