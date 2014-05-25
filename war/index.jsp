@@ -18,7 +18,8 @@
 	<script type="text/javascript" src="./res/js/jquery.min.js"></script>
 	<script type="text/javascript" src="./res/js/plugins.js"></script>
 	<script type="text/javascript" src="./res/js/script.js"></script>
-
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.4.1/d3.min.js"></script>
+		
 	<div class="hide konami"></div>
 	<header>
 	<div class="ie-lame">it seems internet explorer is too lame to
@@ -90,12 +91,12 @@
 				<form>
 					<input type="text" id="keyword" placeholder="Type anything you wanna know here" />
 					<input type="submit" id="search" class="solid" value="Search" />
-					<div id="tempresults"></div>
+					<div id="tempresults" style="height:1500px; width:1000px;"></div>
 				</form>
 			</div>
 		</div>
 
-		<div id="resultcontent" class="wrapperresult">
+		<div id="resultcontent" class="wrapperresult" >
 			<section id="tabbed"> <!-- First tab input and label --> <input
 				id="t-1" name="tabbed-tabs" type="radio" checked="checked" /> <label
 				for="t-1" class="tabs shadow entypo-pencil">Content</label> <!-- Second tab input and label -->

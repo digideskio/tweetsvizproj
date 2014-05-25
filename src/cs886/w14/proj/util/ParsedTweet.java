@@ -1,5 +1,6 @@
 package cs886.w14.proj.util;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -12,6 +13,7 @@ public class ParsedTweet {
 	public double []loc; // latitude and longitude
 	public String msg;
 	public List<String> bagOfWords;
+	public List<String> bagOfEmoticons;
 	public String lang; // two-letter iso language code
 	
 	// TODO
@@ -24,6 +26,8 @@ public class ParsedTweet {
 		msg = t.getText();
 		loc = getTweetLocInfo(t);
 		lang = t.getLang();
+		bagOfEmoticons = new ArrayList<String>();
+		bagOfEmoticons.add("");
 	}
 
 	public String toString() {
@@ -33,6 +37,7 @@ public class ParsedTweet {
 	        + "msg = " + msg + "\r\n"
 	        + "lang = " + lang + "\r\n"
 	        + "bagOfWords = " + bagOfWords.toString() + "\r\n"
+	        + "bagOfEmoticons = " + bagOfEmoticons.toString() + "\r\n"
 	        + "======================================================================\r\n";
 	}
 	
