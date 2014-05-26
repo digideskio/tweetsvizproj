@@ -9,6 +9,9 @@ import java.util.regex.Pattern;
 import twitter4j.GeoLocation;
 import twitter4j.Status;
 
+import cs886.w14.proj.util.ANEWEntry;
+import cs886.w14.proj.util.TweetAnalysis;
+
 public class ParsedTweet {
 	public String user;
 	public Date dateTime;
@@ -17,7 +20,9 @@ public class ParsedTweet {
 	public List<String> bagOfWords;
 	public List<String> bagOfEmoticons;
 	public String lang; // two-letter iso language code
-	
+	public TweetAnalysis analyzer;
+
+
 	// TODO
 	public List<ParsedTweet> retweets;
 	public boolean numOfFavorites;
@@ -29,6 +34,7 @@ public class ParsedTweet {
 		loc = getTweetLocInfo(t);
 		lang = t.getLang();
 		bagOfEmoticons = new ArrayList<String>();
+		analyzer = new TweetAnalysis();
 	}
 
 	public String toString() {
