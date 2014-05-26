@@ -54,12 +54,9 @@ public class TweetsVizJSPServlet extends HttpServlet {
 		    tweets = TweetsParser.ParseTweetsFromWeb(rawtweets, stopwords);
 		    logger.log(Level.INFO, "-------parsed tweets size: " + tweets.size());
 		    
-<<<<<<< Upstream, based on origin/Corona
-		    // TEST
-		    for (ParsedTweet t : tweets) {
-		    	logger.log(Level.INFO, t.toString());
-		    	results += t.toString();
-=======
+
+		  
+
 		    for(ParsedTweet tweet: tweets ){
 		    	logger.log(Level.INFO, "new tweet " +tweet.bagOfWords.toString());
 		    	for(String word: tweet.bagOfWords) {
@@ -71,7 +68,7 @@ public class TweetsVizJSPServlet extends HttpServlet {
 		    			logger.log(Level.INFO, "HIT!" +word);
 		    		}
 		    	}
->>>>>>> 4be6731 added anew dicionary and sentiment analyzer
+
 		    }
 		    
 		    logger.log(Level.INFO, "Size before "+tweets.size() );
@@ -86,14 +83,15 @@ public class TweetsVizJSPServlet extends HttpServlet {
 		    
 		    logger.log(Level.INFO, "Size after "+tweets.size() );
 		    // TEST
-//		    for (ParsedTweet t : tweets) {
-//		    	results += t.toString();
-//	
-//		    }
+		    for (ParsedTweet t : tweets) {
+		    	logger.log(Level.INFO, t.toString());
+		    	results += t.toString();
+		    }
 		}
 		resp.setContentType("text/plain");
 		resp.setCharacterEncoding("UTF-8");
 		resp.getWriter().write(results);
+		
 	}
 	
 	@Override
