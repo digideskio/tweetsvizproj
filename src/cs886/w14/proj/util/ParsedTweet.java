@@ -3,12 +3,14 @@ package cs886.w14.proj.util;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import twitter4j.GeoLocation;
 import twitter4j.Status;
-
+import cs886.w14.proj.TweetsVizJSPServlet;
 import cs886.w14.proj.util.ANEWEntry;
 import cs886.w14.proj.util.TweetAnalysis;
 
@@ -21,7 +23,7 @@ public class ParsedTweet {
 	public List<String> bagOfEmoticons;
 	public String lang; // two-letter iso language code
 	public TweetAnalysis analyzer;
-
+	private final Logger logger = Logger.getLogger(ParsedTweet.class.getName());
 
 	// TODO
 	public List<ParsedTweet> retweets;
@@ -46,6 +48,23 @@ public class ParsedTweet {
 	        + "bagOfWords = " + bagOfWords.toString() + "\r\n"
 	        + "bagOfEmoticons = " + bagOfEmoticons.toString() + "\r\n"
 	        + "======================================================================\r\n";
+	}
+	
+	public void generateANEWAnalyzer(ANEWDicWrapper dic, ANEWDicWrapper edic) {
+		for (String word: bagOfWords) {
+    		ANEWEntry entry = dic.getEntrybyWord(word);
+    		if(entry != null) {
+    			analyzer.addWord(entry);
+    			logger.log(Level.INFO, "WORD HIT!" + word);
+    		}
+    	}
+    	for (String e: bagOfEmoticons) {
+    		ANEWEntry entry = edic.getEntrybyWord(e);
+    		if(entry != null) {
+    			analyzer.addWord(entry);
+    			logger.log(Level.INFO, "EMOTICON HIT!" + e);
+    		}
+    	}
 	}
 	
 	private double[] getTweetLocInfo(Status t) {

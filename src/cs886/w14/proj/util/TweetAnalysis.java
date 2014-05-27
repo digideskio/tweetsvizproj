@@ -51,7 +51,7 @@ public class TweetAnalysis {
 	public String wordsToString() {
 		String wordsStr = "";
 		for(ANEWEntry word: words) {
-			wordsStr+=word.getWord() +", ";
+			wordsStr+=word.getWord() + ", ";
 		}
 		return wordsStr;
 	}

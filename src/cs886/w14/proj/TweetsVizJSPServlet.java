@@ -11,6 +11,7 @@ import javax.servlet.http.*;
 
 import cs886.w14.proj.nlp.TweetsParser;
 import cs886.w14.proj.util.ParsedTweet;
+import cs886.w14.proj.util.RuntimeParams;
 import cs886.w14.proj.util.Twitter4JDriver;
 import cs886.w14.proj.util.ANEWDicWrapper;
 import cs886.w14.proj.util.ANEWEntry;
@@ -21,21 +22,21 @@ import cs886.w14.proj.util.Gaussian;;
 
 
 public class TweetsVizJSPServlet extends HttpServlet {
+	private static String STOPWORDS_FP = "./nlp/stopwords.txt";
 	private static final long serialVersionUID = 1L;
+	private static ANEWDicWrapper _dic = new ANEWDicWrapper("anew/ANEW2010All.txt");
+	private static ANEWDicWrapper _emoticon_dic = new ANEWDicWrapper("anew/ANEWEmoticons.txt");
+	
 	private final Logger logger = Logger.getLogger(TweetsVizJSPServlet.class.getName());
 	private List<ParsedTweet> tweets;
-	private static ANEWDicWrapper _dic = new ANEWDicWrapper("anew/ANEW2010All.txt");
 	
-	public TweetsVizJSPServlet() { 
-		
-
-	}
+	public TweetsVizJSPServlet() {}
 	
 	public void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException {
 		String keyword = req.getParameter("keyword").toString();
 		Stopwords stopwords = new Stopwords();
 		try {
-			stopwords.read("./nlp/stopwords.txt");
+			stopwords.read(STOPWORDS_FP);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -46,45 +47,34 @@ public class TweetsVizJSPServlet extends HttpServlet {
 		} else if (stopwords.is(keyword)) {
 			results = "keyword belong to the list of stopword, please enter another keyword to avoid meaningless serach query, thank you!";
 		} else {
+			// get query results from twitter API
 			Twitter4JDriver.getInstance().init();
 		    ArrayList<Status> rawtweets = Twitter4JDriver.getInstance().getQueryResults(keyword);
-		    logger.log(Level.INFO, "-------revceived tweets size: " + rawtweets.size());
-		    
-		    // FOR MINGYU LIU TO START
+		    logger.log(Level.INFO, "-------revceived tweets size = " + rawtweets.size());
 		    tweets = TweetsParser.ParseTweetsFromWeb(rawtweets, stopwords);
-		    logger.log(Level.INFO, "-------parsed tweets size: " + tweets.size());
 		    
-
-		  
-
-		    for(ParsedTweet tweet: tweets ){
-		    	logger.log(Level.INFO, "new tweet " +tweet.bagOfWords.toString());
-		    	for(String word: tweet.bagOfWords) {
-		    		ANEWEntry entry = _dic.getEntrybyWord(word);
-		    		
-		    		if(entry != null)
-		    		{
-		    			tweet.analyzer.addWord(entry);
-		    			logger.log(Level.INFO, "HIT!" +word);
-		    		}
-		    	}
-
+		    // generate ANEW parser for each tweet
+		    logger.log(Level.INFO, "-------size after lang filter =" + tweets.size());
+		    for (ParsedTweet t: tweets) {
+		    	logger.log(Level.INFO, "------- new tweets-------");
+		    	logger.log(Level.INFO, "bagofwords = " + t.bagOfWords.toString());
+		    	logger.log(Level.INFO, "emoticons = " + t.bagOfEmoticons.toString());
+		    	t.generateANEWAnalyzer(_dic, _emoticon_dic);
 		    }
 		    
-		    logger.log(Level.INFO, "Size before "+tweets.size() );
+		    // filter tweets with less than MIN_NUM_OF_VALID_WORDS valid sentimental words
+		    logger.log(Level.INFO, "-------size before ANEW analysis = " + tweets.size() );
 		    ListIterator li = tweets.listIterator();
-		    
 		    while(li.hasNext()) {
 		    	ParsedTweet tweet = (ParsedTweet)li.next();
-		    	if(tweet.analyzer.getNumofValidWords() <2) {
+		    	if(tweet.analyzer.getNumofValidWords() < RuntimeParams.MIN_NUM_OF_VALID_WORDS) {
 		    		li.remove();
 		    	}
 		    }
-		    
-		    logger.log(Level.INFO, "Size after "+tweets.size() );
+		    logger.log(Level.INFO, "-------size after ANEW analysis = " + tweets.size() );
+
 		    // TEST
 		    for (ParsedTweet t : tweets) {
-		    	logger.log(Level.INFO, t.toString());
 		    	results += t.toString();
 		    }
 		}
