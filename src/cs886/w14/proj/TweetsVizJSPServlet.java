@@ -14,6 +14,7 @@ import cs886.w14.proj.nlp.TweetsParser;
 import cs886.w14.proj.sentiment.ANEWDicWrapper;
 import cs886.w14.proj.sentiment.ANEWEntry;
 import cs886.w14.proj.sentiment.TweetAnalysis;
+import cs886.w14.proj.util.GsonObj;
 import cs886.w14.proj.util.Twitter4JDriver;
 import twitter4j.Status;
 import weka.core.Stopwords;
@@ -73,20 +74,11 @@ public class TweetsVizJSPServlet extends HttpServlet {
 		    logger.log(Level.INFO, "-------size after ANEW analysis = " + tweets.size() );
 
 		    // TEST
+		    List<GsonObj> objList = new ArrayList<GsonObj>();
 		    for (ParsedTweet t : tweets) {
-		    	results += t.getANEWCoord() + " ";
+		    	objList.add(t.getGsonObj());
 		    }
-		    results += ";";
-		    for (ParsedTweet t : tweets) {
-		    	ArrayList<String> rtnStr = new ArrayList<String>();
-		    	for (String w : t.bagOfWords) {
-		    		rtnStr.add(w);
-		    	}
-		    	for (String e : t.bagOfEmoticons) {
-		    		rtnStr.add(e);
-		    	}
-		    	results += rtnStr.toString() + " ";
-		    }
+		    results = GsonObj.GsonFormatter(objList);
 		}
 		logger.log(Level.INFO, "-------results = " + results);
 		resp.setContentType("text/plain");

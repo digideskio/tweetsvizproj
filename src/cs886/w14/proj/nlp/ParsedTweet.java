@@ -14,6 +14,7 @@ import cs886.w14.proj.TweetsVizJSPServlet;
 import cs886.w14.proj.sentiment.ANEWDicWrapper;
 import cs886.w14.proj.sentiment.ANEWEntry;
 import cs886.w14.proj.sentiment.TweetAnalysis;
+import cs886.w14.proj.util.GsonObj;
 
 public class ParsedTweet {
 	public String user;
@@ -70,8 +71,8 @@ public class ParsedTweet {
 	
 	// TODO
 	// description of each data point showing in the tooltip
-	public String getJson() {
-		return null;
+	public GsonObj getGsonObj() {
+		return new GsonObj(this);
 	}
 	
 	public String getANEWCoord() {
