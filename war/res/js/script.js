@@ -19,20 +19,6 @@ $(window).scroll(function() {
     scrollBanner();
 });
 
-/**
- * pass keyword to server then return query results
- */
-$(document).ready(function() {
-	$('#search').click(function(event) {
-		var keyword = $('#keyword').val();
-		$.get('TweetsVizJSPServlet', {
-			keyword : keyword
-		}, function(responseText) {
-			$('#tempresults').text(responseText);
-		});
-	});
-});
-    
 function homeChange() {
     var windowWidth = $(window).width();
     if ($(window).width() > 780) {

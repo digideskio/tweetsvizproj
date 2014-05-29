@@ -1,4 +1,4 @@
-package cs886.w14.proj.util;
+package cs886.w14.proj;
 
 
 public class RuntimeParams {

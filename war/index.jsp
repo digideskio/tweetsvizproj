@@ -3,6 +3,7 @@
 <html lang="en" style="">
 
 <head>
+<meta http-equiv="X-UA-Compatible" content="chrome=1" />
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 <link rel="stylesheet" type="text/css" href="./res/css/searchstyles.css" />
@@ -10,6 +11,7 @@
 <link rel="stylesheet" type="text/css" href="./res/css/tabbed.css" />
 <link rel="stylesheet" type="text/css" href="./res/css/blue.css" />
 <link rel="stylesheet" type="text/css" href="./res/css/animate.min.css" />
+<link rel="stylesheet" type="text/css" href="./res/css/scatter_plot_3d.css"/>
 <title>Tweets Sentiment Visualization</title>
 </head>
 
@@ -18,8 +20,12 @@
 	<script type="text/javascript" src="./res/js/jquery.min.js"></script>
 	<script type="text/javascript" src="./res/js/plugins.js"></script>
 	<script type="text/javascript" src="./res/js/script.js"></script>
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.4.1/d3.min.js"></script>
-		
+	<!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.4.1/d3.min.js"></script>  -->
+	<script type="text/javascript" src="./res/js/highcharts.js"></script>
+	<script type="text/javascript" src="./res/js/highcharts-3d.js"></script>
+	<script type="text/javascript" src="./res/js/exporting.js"></script>
+	<script type="text/javascript" src="./res/js/scatter_plot_3d.js"></script>
+    	
 	<div class="hide konami"></div>
 	<header>
 	<div class="ie-lame">it seems internet explorer is too lame to
@@ -987,11 +993,17 @@
 						</div>
 					</div>
 					<div class="clrfx mt-20"></div>
+					
+					<!-- TEST 3D SCATTER PLOT -->
+					<div id="container" style="height: 700px"></div>
+					
 					<div class="row">
 						<div class="cell w-100">
+						<!-- 
 							<iframe
 								src="http://www.youtube.com/embed/vsObnzivL1A?&rel=0&loop=1&showinfo=0&disablekb=1&modestbranding=1&controls=0&hd=1&autohide=1&color=white&wmode=opaque"
 								frameborder="0" allowfullscreen> </iframe>
+						-->
 						</div>
 					</div>
 				</div>

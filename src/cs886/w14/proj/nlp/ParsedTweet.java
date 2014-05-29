@@ -1,4 +1,4 @@
-package cs886.w14.proj.util;
+package cs886.w14.proj.nlp;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -11,8 +11,9 @@ import java.util.regex.Pattern;
 import twitter4j.GeoLocation;
 import twitter4j.Status;
 import cs886.w14.proj.TweetsVizJSPServlet;
-import cs886.w14.proj.util.ANEWEntry;
-import cs886.w14.proj.util.TweetAnalysis;
+import cs886.w14.proj.sentiment.ANEWDicWrapper;
+import cs886.w14.proj.sentiment.ANEWEntry;
+import cs886.w14.proj.sentiment.TweetAnalysis;
 
 public class ParsedTweet {
 	public String user;
@@ -67,6 +68,23 @@ public class ParsedTweet {
     	}
 	}
 	
+	// TODO
+	// description of each data point showing in the tooltip
+	public String getJson() {
+		return null;
+	}
+	
+	public String getANEWCoord() {
+		String rtn = null;
+		if (analyzer != null) {
+			rtn = "[" + 
+					analyzer.getVal() + "," + 
+					analyzer.getAro() + "," + 
+					analyzer.getDom() + "]";
+		}
+		return rtn;
+	}
+	
 	private double[] getTweetLocInfo(Status t) {
 		double[] loc = { 0, 0 };
 		GeoLocation locInfo = t.getGeoLocation();
@@ -82,10 +100,15 @@ public class ParsedTweet {
 	 */
 	private String removeUrl(String text)
     {
+		logger.log(Level.INFO, "tweets = " + text);
         String rtn = text;
         String urlPattern = "((https?|ftp|gopher|telnet|file|Unsure|http):((//)|(\\\\))+[\\w\\d:#@%/;$()~_?\\+-=\\\\\\.&]*)";
-        Pattern p = Pattern.compile(urlPattern, Pattern.CASE_INSENSITIVE);
+        Pattern p = Pattern.compile(Pattern.quote(urlPattern), Pattern.CASE_INSENSITIVE);
+        // Pattern p = Pattern.compile(urlPattern, Pattern.CASE_INSENSITIVE);
+        
         Matcher m = p.matcher(rtn);
+        logger.log(Level.INFO, "Pattern = " + p.toString());
+        logger.log(Level.INFO, "Matcher = " + m.toString());
         int i = 0;
         while (m.find()) {
             rtn = rtn.replaceAll(m.group(i),"").trim();

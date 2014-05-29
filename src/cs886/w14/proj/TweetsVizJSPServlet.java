@@ -9,15 +9,14 @@ import java.util.logging.Logger;
 import javax.servlet.ServletException;
 import javax.servlet.http.*;
 
+import cs886.w14.proj.nlp.ParsedTweet;
 import cs886.w14.proj.nlp.TweetsParser;
-import cs886.w14.proj.util.ParsedTweet;
-import cs886.w14.proj.util.RuntimeParams;
+import cs886.w14.proj.sentiment.ANEWDicWrapper;
+import cs886.w14.proj.sentiment.ANEWEntry;
+import cs886.w14.proj.sentiment.TweetAnalysis;
 import cs886.w14.proj.util.Twitter4JDriver;
-import cs886.w14.proj.util.ANEWDicWrapper;
-import cs886.w14.proj.util.ANEWEntry;
 import twitter4j.Status;
 import weka.core.Stopwords;
-import cs886.w14.proj.util.TweetAnalysis;
 import cs886.w14.proj.util.Gaussian;;
 
 
@@ -75,13 +74,24 @@ public class TweetsVizJSPServlet extends HttpServlet {
 
 		    // TEST
 		    for (ParsedTweet t : tweets) {
-		    	results += t.toString();
+		    	results += t.getANEWCoord() + " ";
+		    }
+		    results += ";";
+		    for (ParsedTweet t : tweets) {
+		    	ArrayList<String> rtnStr = new ArrayList<String>();
+		    	for (String w : t.bagOfWords) {
+		    		rtnStr.add(w);
+		    	}
+		    	for (String e : t.bagOfEmoticons) {
+		    		rtnStr.add(e);
+		    	}
+		    	results += rtnStr.toString() + " ";
 		    }
 		}
+		logger.log(Level.INFO, "-------results = " + results);
 		resp.setContentType("text/plain");
 		resp.setCharacterEncoding("UTF-8");
 		resp.getWriter().write(results);
-		
 	}
 	
 	@Override
@@ -89,6 +99,7 @@ public class TweetsVizJSPServlet extends HttpServlet {
 			throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		super.doPost(req, resp);
+		// logger.log(Level.INFO, "-------done analysis = " + tweets.size() );
 	}
 
 }

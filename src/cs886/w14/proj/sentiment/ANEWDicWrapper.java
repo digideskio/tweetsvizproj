@@ -1,4 +1,4 @@
-package cs886.w14.proj.util;
+package cs886.w14.proj.sentiment;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
@@ -8,7 +8,7 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import cs886.w14.proj.util.ANEWEntry;
+import cs886.w14.proj.sentiment.ANEWEntry;
 
 
 public class ANEWDicWrapper {

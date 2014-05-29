@@ -21,8 +21,7 @@ import org.tartarus.snowball.util.StemmerException;
 import twitter4j.Status;
 import weka.core.Stopwords;
 import cs886.w14.proj.TweetsVizJSPServlet;
-import cs886.w14.proj.util.ANEWEntry;
-import cs886.w14.proj.util.ParsedTweet;
+import cs886.w14.proj.sentiment.ANEWEntry;
 import cs886.w14.proj.util.Twitter4JDriver;
 
 public class TweetsParser {
