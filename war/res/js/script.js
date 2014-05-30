@@ -11,6 +11,12 @@ $(function() {
         }, 2000);
 
         $('#resultcontent').addClass('animated fadeInRight');
+        
+        if ($('#compare').is(":checked")) {
+        	$("#t-1").click();
+        } else {
+        	$("#t-2").click();
+        }
         event.preventDefault();
     });
     $('#compare').click(function () {

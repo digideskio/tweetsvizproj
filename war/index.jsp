@@ -97,7 +97,17 @@
 				work done by Yuexing Luo and Mingyu Liu from University of Waterloo;</p>
 			<p class="animate">Let's start a new inquiry now and find out how
 				awesome it is!</p>
-			<p><a id="infotips" href="#" title="Check 'Compare' if you wanna compare two things">#Search Tips</a></p>
+			<a href="#" class="tooltip">
+			    #Tooltip
+			    <span>
+			        
+			        <p>Check 'Compare' to search and compare two things together</p><br />
+			      
+			    </span>
+			</a>
+			<br/><br/>
+			<a href="http://www.java-tutorial.ch/maven/retrieve-tweets-using-twitter4j#twitter_search_operator">Learn more about search operators</a>
+			<br/><br/>
 			<div id="searchfd">
 				<form>
 					<input type="text" id="keyword" placeholder="Type anything here" />
