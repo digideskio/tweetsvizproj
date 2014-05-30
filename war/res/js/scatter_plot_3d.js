@@ -224,7 +224,7 @@ function displayCompareView(sdata) {
     };
 }
 
-// series data
+// single view data
 function display3dScatterView(sdata) {
     // Give the points a 3D feel by adding a radial gradient
     Highcharts.getOptions().colors = $.map(Highcharts.getOptions().colors, function(color) {
@@ -271,7 +271,7 @@ function display3dScatterView(sdata) {
             }
         },
         title: {
-            text: 'Draggable box'
+            text: '3D Tweets Sentiment Visualization (Valence, Arousal, Dominance)'
         },
         subtitle: {
             text: 'Click and drag the plot area to rotate in space'
@@ -281,7 +281,7 @@ function display3dScatterView(sdata) {
 			formatter : function() {
 				console.log(this);
 				return '<div class="datalabels"><b>' + this.point.type +': ' + this.point.name
-						+ '</b><br>x: ' + this.point.x + '<br>y: ' + this.point.y + '<br>z: ' + this.point.z + '</div>';
+						+ '</b><br><b>&bull;valence</b>: ' + this.point.x + '<br><b>&bull;arousal</b>: ' + this.point.y + '<br><b>&bull;dominance</b>: ' + this.point.z + '</div>';
 			}
         },
         plotOptions: {
@@ -294,16 +294,27 @@ function display3dScatterView(sdata) {
         yAxis: {
             min: 1,
             max: 9,
-            title: null
+            title: {
+                text: 'Arousal',
+            }
         },
         xAxis: {
             min: 1,
             max: 9,
-            gridLineWidth: 1
+            gridLineWidth: 1,
+            title: {
+                text: 'Valence',
+                style: {
+                    color: Highcharts.getOptions().colors[0]
+                }
+            }
         },
         zAxis: {
             min: 1,
-            max: 9
+            max: 9,
+            title: {
+                text: 'Dominent',
+            }
         },
         legend: {
             enabled: false

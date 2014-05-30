@@ -10,6 +10,7 @@
 
  License: www.highcharts.com/license
 */
+/*
 (function(f) {
     var A = f.Chart, t = f.addEvent, B = f.removeEvent, l = f.createElement, o = f.discardElement, v = f.css, k = f.merge, r = f.each, p = f.extend, D = Math.max, j = document, C = window, E = f.isTouchDevice, F = f.Renderer.prototype.symbols, s = f.getOptions(), y;
     p(s.lang, {printChart: "Print chart",downloadPNG: "Download PNG image",downloadJPEG: "Download JPEG image",downloadPDF: "Download PDF document",downloadSVG: "Download SVG vector image",contextButtonTitle: "Chart context menu"});
@@ -170,3 +171,4 @@
         }
     })
 })(Highcharts);
+*/
