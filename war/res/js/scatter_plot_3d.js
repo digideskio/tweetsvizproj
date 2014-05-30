@@ -7,30 +7,43 @@ $(document).ready(function() {
 		if($('#compare').is(":checked")) {
 			var keyword = $('#keyword').val();
 			var keyword2 = $('#keyword2').val();
+			var isCompareView = "true";
 			$.get('TweetsVizJSPServlet', {
 				keyword : keyword,
 				keyword2 : keyword2
 			}, function(responseText) {
-				
-				// JSON TEST
-				var result = $.parseJSON(responseText);
+				var result;
 				var sdata = [];
-				sdata.push(result);
-	            display3dScatterView(sdata);
-	            Pace.stop();
+				// JSON TEST
+				// TODO
+				try {
+					result = $.parseJSON(responseText);
+					sdata.push(result);
+		            display3dScatterView(sdata);
+		            Pace.stop();
+				} catch (err) {
+					// TODO
+					// disable tab showing
+				  console.log(responseText);
+				  alert(responseText);
+				}
 			});
 		} else {
 			var keyword = $('#keyword').val();
+			var isCompareView = "false";
 			$.get('TweetsVizJSPServlet', {
 				keyword : keyword
 			}, function(responseText) {
-				
 				// JSON TEST
-				var result = $.parseJSON(responseText);
-				var sdata = [];
-				sdata.push(result);
-	            display3dScatterView(sdata);
-	            Pace.stop();
+				try {
+					result = $.parseJSON(responseText);
+					sdata.push(result);
+		            display3dScatterView(sdata);
+		            Pace.stop();
+				} catch (err) {
+				  console.log(responseText);
+				  alert(responseText);
+				}
 			});
 		}
 		

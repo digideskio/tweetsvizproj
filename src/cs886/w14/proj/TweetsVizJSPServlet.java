@@ -34,9 +34,10 @@ public class TweetsVizJSPServlet extends HttpServlet {
 	
 	public void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException {
 		String keyword = req.getParameter("keyword").toString();
+		// String isCompareView = req.getParameter("isCompareView").toString();
 		String keyword2 = null;
 		try {
-		keyword2 = req.getParameter("keyword2").toString();
+			keyword2 = req.getParameter("keyword2").toString();
 		} catch (Exception e) {
 			logger.log(Level.INFO, "-------No second keyword");
 		}
