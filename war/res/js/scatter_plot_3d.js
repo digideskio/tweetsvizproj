@@ -30,32 +30,31 @@ $(document).ready(function() {
 				  alert(responseText);
 				}
 				*/
-            });
-        } else {
-            // single view
-            var keyword = $('#keyword').val();
-            $.get('TweetsVizJSPServlet', {
-                keyword: keyword,
-                compareview: "false"
-            }, function(responseText) {
-                var result;
-                var sdata = [];
-                // JSON TEST
-                var result;
-                var sdata = [];
-                try {
-                    result = $.parseJSON(responseText);
-                    sdata.push(result);
-                    display3dScatterView(sdata);
-                    Pace.stop();
-                } catch (err) {
-                    console.log(responseText);
-                    alert(responseText);
-                }
-            });
-        }
-
-    });
+    
+			});
+		} else {
+			// single view
+			var keyword = $('#keyword').val();
+			$.get('TweetsVizJSPServlet', {
+				keyword : keyword,
+				compareview : "false"
+			}, function(responseText) {
+				// JSON TEST
+				var result, sdata;
+				try {
+					result = $.parseJSON(responseText);
+					sdata = result;
+					console.log(sdata);
+		            display3dScatterView(sdata);
+		            Pace.stop();
+				} catch (err) {
+				  console.log(responseText);
+				  alert(responseText);
+				}
+			});
+		}
+		
+	});
 });
 
 function displayCompareView(sdata) {
@@ -278,11 +277,12 @@ function display3dScatterView(sdata) {
             text: 'Click and drag the plot area to rotate in space'
         },
         tooltip: {
-            useHTML: true,
-            formatter: function() {
-                console.log(this);
-                return '<div class="datalabels"><b>msg: ' + this.point.name + '</b><br>x: ' + this.point.x + '<br>y: ' + this.point.y + '<br>z: ' + this.point.z + '</div>';
-            }
+			useHTML : true,
+			formatter : function() {
+				console.log(this);
+				return '<div class="datalabels"><b>' + this.point.type +': ' + this.point.name
+						+ '</b><br>x: ' + this.point.x + '<br>y: ' + this.point.y + '<br>z: ' + this.point.z + '</div>';
+			}
         },
         plotOptions: {
             scatter: {

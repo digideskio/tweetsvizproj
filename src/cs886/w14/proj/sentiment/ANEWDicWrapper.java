@@ -12,7 +12,7 @@ import cs886.w14.proj.sentiment.ANEWEntry;
 
 
 public class ANEWDicWrapper {
-	public static final String []_anewHighlight = {"lively", "tense", "nervous", "stress", "upset", "annoy", "sad", "unhappy", "depressed", "bored", "subdued", "calm", "relaxed", "serene", "contents/satisfactory", "pleasure", "happy", "elated", "excite(excitement)", "alert"};
+	public static final String []_anewHighlight = {"nervous", "upset", "sad", "unhappy", "depressed", "relaxed", "satisfactory", "pleasure", "happy", "excitement"};
 	public double fqAvg, fqMin, fqMax;
 	
 	private final Logger logger = Logger.getLogger(ANEWDicWrapper.class.getName());

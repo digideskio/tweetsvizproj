@@ -4,6 +4,7 @@ public class Color3d {
 	public static final String []COLOR_FACTTORY = {"#00C5E5", "#37B2DE", "#6E9FD7", "#A58CD0", "#DC79CA"};
 	public static final Color3d START_COLOR = new Color3d(0, 197, 229, 1);
 	public static final Color3d END_COLOR = new Color3d(220, 121, 202, 1);
+	public static final String HIGHLIGHTS_COLOR = "rgba(248, 184, 56, 0.8)";
 	public static final int GRADIENT_COLOR_LEVEL = 10;
 	
 	public static String getGradientColorHex (int level, int index) {
