@@ -51,7 +51,7 @@ public class TweetsVizJSPServlet extends HttpServlet {
 		
 		// single view
 		if(isCompareView == "false" || keyword2 == null) {
-			logger.log(Level.INFO, "-------single view keyword = " + keyword);
+			// logger.log(Level.INFO, "-------single view keyword = " + keyword);
 			
 			if (keyword.equals("")) {
 				 results = "no input";
@@ -63,7 +63,7 @@ public class TweetsVizJSPServlet extends HttpServlet {
 			    ArrayList<Status> rawtweets = Twitter4JDriver.getInstance().getQueryResults(keyword);
 			    if (rawtweets != null) {
 			    	if (rawtweets.size() != 0) {
-			    		logger.log(Level.INFO, "-------revceived tweets size = " + rawtweets.size());
+			    		// logger.log(Level.INFO, "-------revceived tweets size = " + rawtweets.size());
 					    tweets = TweetsParser.ParseTweetsFromWeb(rawtweets, stopwords);
 					    results = JsonParser.getSingleViewData(tweets, TweetsParser.getDic().getEntriesHighlighted());
 			    	} else {
@@ -84,13 +84,13 @@ public class TweetsVizJSPServlet extends HttpServlet {
 		    
 		    if (rawtweets1 != null && rawtweets2 != null) {
 		    	if (rawtweets1.size() != 0 && rawtweets2.size() != 0) {
-		    		logger.log(Level.INFO, "-------revceived tweets (keyword1 =" + keyword + " with size = " + rawtweets1.size());
-				    logger.log(Level.INFO, "-------revceived tweets (keyword2 =" + keyword2 + " with size = " + rawtweets2.size());
+		    		// logger.log(Level.INFO, "-------revceived tweets (keyword1 =" + keyword + " with size = " + rawtweets1.size());
+				    // logger.log(Level.INFO, "-------revceived tweets (keyword2 =" + keyword2 + " with size = " + rawtweets2.size());
 				    
 				    tweets = TweetsParser.ParseTweetsFromWeb(rawtweets1, stopwords);
 				    tweets2 = TweetsParser.ParseTweetsFromWeb(rawtweets2, stopwords);
 				    results = JsonParser.getCompareViewData(tweets, tweets2);
-				    logger.log(Level.INFO, "-------compare view results = \n" + results);
+				    // logger.log(Level.INFO, "-------compare view results = \n" + results);
 		    	} else if (rawtweets1.size() == 0) {
 		    		results = "no tweets found for query: '" + keyword +"'\n";
 		    	} else if (rawtweets2.size() == 0) {
@@ -111,7 +111,6 @@ public class TweetsVizJSPServlet extends HttpServlet {
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp)
 			throws ServletException, IOException {
-		// TODO Auto-generated method stub
 		super.doPost(req, resp);
 		// logger.log(Level.INFO, "-------done analysis = " + tweets.size() );
 	}

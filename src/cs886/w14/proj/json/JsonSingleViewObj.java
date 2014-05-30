@@ -71,7 +71,6 @@ public class JsonSingleViewObj {
 		int gindex = (int) pt.analyzer.getFusedVal();
 		Color3d rgb = Color3d.getGradientColor3d(Color3d.GRADIENT_COLOR_LEVEL, gindex);
 		color = new Color3d(rgb.r, rgb.g, rgb.b, cfAlpha).toRGBAValue();
-		logger.log(Level.INFO, "=====color===: " + color);
 	}
 	
 	public JsonSingleViewObj(ANEWEntry e) {
@@ -84,7 +83,6 @@ public class JsonSingleViewObj {
 		cfSize = RuntimeParams.SCATTER_HIGHLIGHTS_RADIUS;
 		cfAlpha = 1;
 		highlight = true;
-		logger.log(Level.INFO, "=====include highlights word = : " + name);
 	}
 	
 	@Override
@@ -93,14 +91,12 @@ public class JsonSingleViewObj {
 	}
 	
 	private String insertNewLine(String str) {
-		logger.log(Level.INFO, "=====original str before adjust = : " + str);
 		StringBuilder sb = new StringBuilder(str);
 		for (int i = 0; i < str.length(); i++) {
 			if (i%20 == 0) {
 				sb.insert(i++, '\n');
 			}
 		}
-		logger.log(Level.INFO, "=====new str after adjust = : " + sb.toString());
 	    return sb.toString();
 	}
 
