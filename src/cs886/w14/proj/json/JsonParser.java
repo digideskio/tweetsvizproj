@@ -1,4 +1,4 @@
-package cs886.w14.proj.sentiment;
+package cs886.w14.proj.json;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -9,26 +9,28 @@ import java.util.logging.Logger;
 import cs886.w14.proj.RuntimeParams;
 import cs886.w14.proj.nlp.ParsedTweet;
 import cs886.w14.proj.nlp.TweetsParser;
-import cs886.w14.proj.util.GsonSngleViewObj;
 import twitter4j.Status;
 
-public class ANEWDataViz {
-	private final static Logger logger = Logger.getLogger(ANEWDataViz.class.getName());
+public class JsonParser {
+	private final static Logger logger = Logger.getLogger(JsonParser.class.getName());
 	
 	// viz single 3d View
 	public static String getSingleViewData(List<ParsedTweet> tweets) {
 		String results = null;
-	    List<GsonSngleViewObj> objList = new ArrayList<GsonSngleViewObj>();
+	    List<JsonSingleViewObj> objList = new ArrayList<JsonSingleViewObj>();
 	    for (ParsedTweet t : tweets) {
 	    	objList.add(t.getGsonObj());
 	    }
-	    results = GsonSngleViewObj.GsonFormatter(objList);
+	    results = JsonSingleViewObj.JsonSingleViewFormatter(objList);
 	    return results;
 	}
 	
 	// viz compare view
 	public static String getCompareViewData(List<ParsedTweet> tweets1, List<ParsedTweet> tweets2) {
-		
-		return "";
+		String results = null;
+		JsonCompareViewObj obj1 = new JsonCompareViewObj(tweets1);
+		JsonCompareViewObj obj2 = new JsonCompareViewObj(tweets2);
+		results = JsonCompareViewObj.JsonCompareViewFormatter(obj1, obj2);
+		return results;
 	}
 }

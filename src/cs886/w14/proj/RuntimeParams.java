@@ -13,7 +13,7 @@ public class RuntimeParams {
 	/**
 	 * maximum num of tweets within one query
 	 */
-	public static final int MAX_NUM_OF_TWEETS = 512;
+	public static final int MAX_NUM_OF_TWEETS = 128;
 	
 	/**
 	 * The message displayed to the user when the server cannot be reached or
@@ -27,4 +27,7 @@ public class RuntimeParams {
 	
 	public static final int SCATTER_RADIUS_MIN = 5;
 	public static final int SCATTER_RADIUS_MAX_INTERVAL = 10;
+	
+	public static final int NUM_OF_TOP_FAV_RETWEETS = 5;
+	public static final int NUM_OF_TOP_COMMON_WORDS = 5;
 }

@@ -9,13 +9,13 @@ import java.util.logging.Logger;
 import javax.servlet.ServletException;
 import javax.servlet.http.*;
 
+import cs886.w14.proj.json.JsonParser;
+import cs886.w14.proj.json.JsonSingleViewObj;
 import cs886.w14.proj.nlp.ParsedTweet;
 import cs886.w14.proj.nlp.TweetsParser;
-import cs886.w14.proj.sentiment.ANEWDataViz;
 import cs886.w14.proj.sentiment.ANEWDicWrapper;
 import cs886.w14.proj.sentiment.ANEWEntry;
 import cs886.w14.proj.sentiment.TweetAnalysis;
-import cs886.w14.proj.util.GsonSngleViewObj;
 import cs886.w14.proj.util.Twitter4JDriver;
 import twitter4j.Status;
 import weka.core.Stopwords;
@@ -63,7 +63,7 @@ public class TweetsVizJSPServlet extends HttpServlet {
 			    ArrayList<Status> rawtweets = Twitter4JDriver.getInstance().getQueryResults(keyword);
 			    logger.log(Level.INFO, "-------revceived tweets size = " + rawtweets.size());
 			    tweets = TweetsParser.ParseTweetsFromWeb(rawtweets, stopwords);
-			    results = ANEWDataViz.getSingleViewData(tweets);
+			    results = JsonParser.getSingleViewData(tweets);
 			}
 			
 		// Compare View 
@@ -77,11 +77,11 @@ public class TweetsVizJSPServlet extends HttpServlet {
 		    
 		    tweets = TweetsParser.ParseTweetsFromWeb(rawtweets1, stopwords);
 		    tweets2 = TweetsParser.ParseTweetsFromWeb(rawtweets2, stopwords);
-		    results = ANEWDataViz.getCompareViewData(tweets, tweets2);
+		    results = JsonParser.getCompareViewData(tweets, tweets2);
+		    logger.log(Level.INFO, "-------compare view results = \n" + results);
 		}
 		
 		// pass results to front side
-		logger.log(Level.INFO, "-------results = " + results);
 		resp.setContentType("text/plain");
 		resp.setCharacterEncoding("UTF-8");
 		resp.getWriter().write(results);

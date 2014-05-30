@@ -11,12 +11,12 @@ import java.util.regex.Pattern;
 import twitter4j.GeoLocation;
 import twitter4j.Status;
 import cs886.w14.proj.TweetsVizJSPServlet;
+import cs886.w14.proj.json.JsonSingleViewObj;
 import cs886.w14.proj.sentiment.ANEWDicWrapper;
 import cs886.w14.proj.sentiment.ANEWEntry;
 import cs886.w14.proj.sentiment.TweetAnalysis;
-import cs886.w14.proj.util.GsonSngleViewObj;
 
-public class ParsedTweet {
+public class ParsedTweet implements Comparable<ParsedTweet>{
 	public String user;
 	public Date dateTime;
 	public double []loc; // latitude and longitude
@@ -76,8 +76,8 @@ public class ParsedTweet {
 	}
 	
 	// description of each data point showing in the tooltip
-	public GsonSngleViewObj getGsonObj() {
-		return new GsonSngleViewObj(this);
+	public JsonSingleViewObj getGsonObj() {
+		return new JsonSingleViewObj(this);
 	}
 	
 	// exclude emoticons
@@ -149,5 +149,10 @@ public class ParsedTweet {
         }
         return rtn;
     }
+
+	@Override
+	public int compareTo(ParsedTweet o) {
+		return ((this.numOfFavorites + this.numOfRetweets) - (o.numOfFavorites + o.numOfRetweets));
+	}
     
 }

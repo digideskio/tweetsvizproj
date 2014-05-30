@@ -3,8 +3,8 @@ package cs886.w14.proj.sentiment;
 import org.tartarus.snowball.EnglishSnowballStemmerFactory;
 import org.tartarus.snowball.util.StemmerException;
 
-public class ANEWEntry {
-
+public class ANEWEntry implements Comparable<ANEWEntry>{
+	public int wordFreqInTweets;
 	private String _word, _wordstem;
 	private short _wdnum;
 	private float _valMn;
@@ -72,6 +72,11 @@ public class ANEWEntry {
 			e.printStackTrace();
 		}
 		return stem;
+	}
+
+	@Override
+	public int compareTo(ANEWEntry o) {
+		return (this.wordFreqInTweets-o.wordFreqInTweets);
 	}
 
 }

@@ -1,4 +1,4 @@
-package cs886.w14.proj.util;
+package cs886.w14.proj.json;
 
 import java.text.DecimalFormat;
 import java.util.ArrayList;
@@ -12,13 +12,14 @@ import org.json.simple.JSONObject;
 
 import cs886.w14.proj.RuntimeParams;
 import cs886.w14.proj.nlp.ParsedTweet;
+import cs886.w14.proj.util.Color3d;
 
-public class GsonSngleViewObj {
-	private final Logger logger = Logger.getLogger(GsonSngleViewObj.class.getName());
+public class JsonSingleViewObj {
+	private final Logger logger = Logger.getLogger(JsonSingleViewObj.class.getName());
 	
-	public static String GsonFormatter(List<GsonSngleViewObj> objList) {
+	public static String JsonSingleViewFormatter(List<JsonSingleViewObj> objList) {
 		JSONArray list = new JSONArray();
-		for (GsonSngleViewObj obj : objList) {
+		for (JsonSingleViewObj obj : objList) {
 			JSONObject jobj = new JSONObject();
 			jobj.put("name", obj.name);
 			jobj.put("x", obj.x);
@@ -42,7 +43,7 @@ public class GsonSngleViewObj {
 	public String color;
 	public double cfAlpha, cfSize;
 	
-	public GsonSngleViewObj (ParsedTweet pt) {
+	public JsonSingleViewObj (ParsedTweet pt) {
 		x = pt.analyzer.getVal();
 		y = pt.analyzer.getAro();
 		z = pt.analyzer.getDom();

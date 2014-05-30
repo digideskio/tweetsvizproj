@@ -5,6 +5,7 @@ var globalv;
 $(document).ready(function() {
 	$('#search').click(function(event) {
 		if($('#compare').is(":checked")) {
+			// compare view
 			var keyword = $('#keyword').val();
 			var keyword2 = $('#keyword2').val();
 			$.get('TweetsVizJSPServlet', {
@@ -12,9 +13,9 @@ $(document).ready(function() {
 				keyword2 : keyword2,
 				compareview : "true"
 			}, function(responseText) {
-				var result;
-				var sdata = [];
-				// JSON TEST
+				console.log(responseText);
+				alert(responseText);
+				/*
 				// TODO
 				try {
 					result = $.parseJSON(responseText);
@@ -27,9 +28,10 @@ $(document).ready(function() {
 				  console.log(responseText);
 				  alert(responseText);
 				}
+				*/
 			});
 		} else {
-			
+			// single view
 			var keyword = $('#keyword').val();
 			$.get('TweetsVizJSPServlet', {
 				keyword : keyword,
