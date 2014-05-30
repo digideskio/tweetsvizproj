@@ -34,6 +34,12 @@ public class TweetsVizJSPServlet extends HttpServlet {
 	
 	public void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException {
 		String keyword = req.getParameter("keyword").toString();
+		String keyword2 = null;
+		try {
+		keyword2 = req.getParameter("keyword2").toString();
+		} catch (Exception e) {
+			logger.log(Level.INFO, "-------No second keyword");
+		}
 		Stopwords stopwords = new Stopwords();
 		try {
 			stopwords.read(STOPWORDS_FP);
@@ -41,49 +47,55 @@ public class TweetsVizJSPServlet extends HttpServlet {
 			e.printStackTrace();
 		}
 		
-		String results = keyword + "\n";
-		if (keyword.equals("")) {
-			 results = "no input";
-		} else if (stopwords.is(keyword)) {
-			results = "keyword belong to the list of stopword, please enter another keyword to avoid meaningless serach query, thank you!";
-		} else {
-			// get query results from twitter API
-			Twitter4JDriver.getInstance().init();
-		    ArrayList<Status> rawtweets = Twitter4JDriver.getInstance().getQueryResults(keyword);
-		    logger.log(Level.INFO, "-------revceived tweets size = " + rawtweets.size());
-		    tweets = TweetsParser.ParseTweetsFromWeb(rawtweets, stopwords);
-		    
-		    // generate ANEW parser for each tweet
-		    logger.log(Level.INFO, "-------size after lang filter =" + tweets.size());
-		    for (ParsedTweet t: tweets) {
-		    	logger.log(Level.INFO, "------- new tweets-------");
-		    	logger.log(Level.INFO, "bagofwords = " + t.bagOfWords.toString());
-		    	logger.log(Level.INFO, "emoticons = " + t.bagOfEmoticons.toString());
-		    	t.generateANEWAnalyzer(_dic, _emoticon_dic);
-		    }
-		    
-		    // filter tweets with less than MIN_NUM_OF_VALID_WORDS valid sentimental words
-		    logger.log(Level.INFO, "-------size before ANEW analysis = " + tweets.size() );
-		    ListIterator li = tweets.listIterator();
-		    while(li.hasNext()) {
-		    	ParsedTweet tweet = (ParsedTweet)li.next();
-		    	if(tweet.analyzer.getNumofValidWords() < RuntimeParams.MIN_NUM_OF_VALID_WORDS) {
-		    		li.remove();
-		    	}
-		    }
-		    logger.log(Level.INFO, "-------size after ANEW analysis = " + tweets.size() );
+		if(keyword2 == null) {
+			String results = keyword + "\n";
+			if (keyword.equals("")) {
+				 results = "no input";
+			} else if (stopwords.is(keyword)) {
+				results = "keyword belong to the list of stopword, please enter another keyword to avoid meaningless serach query, thank you!";
+			} else {
+				// get query results from twitter API
+				Twitter4JDriver.getInstance().init();
+			    ArrayList<Status> rawtweets = Twitter4JDriver.getInstance().getQueryResults(keyword);
+			    logger.log(Level.INFO, "-------revceived tweets size = " + rawtweets.size());
+			    tweets = TweetsParser.ParseTweetsFromWeb(rawtweets, stopwords);
+			    
+			    // generate ANEW parser for each tweet
+			    logger.log(Level.INFO, "-------size after lang filter =" + tweets.size());
+			    for (ParsedTweet t: tweets) {
+			    	logger.log(Level.INFO, "------- new tweets-------");
+			    	logger.log(Level.INFO, "bagofwords = " + t.bagOfWords.toString());
+			    	logger.log(Level.INFO, "emoticons = " + t.bagOfEmoticons.toString());
+			    	t.generateANEWAnalyzer(_dic, _emoticon_dic);
+			    }
+			    
+			    // filter tweets with less than MIN_NUM_OF_VALID_WORDS valid sentimental words
+			    logger.log(Level.INFO, "-------size before ANEW analysis = " + tweets.size() );
+			    ListIterator li = tweets.listIterator();
+			    while(li.hasNext()) {
+			    	ParsedTweet tweet = (ParsedTweet)li.next();
+			    	if(tweet.analyzer.getNumofValidWords() < RuntimeParams.MIN_NUM_OF_VALID_WORDS) {
+			    		li.remove();
+			    	}
+			    }
+			    logger.log(Level.INFO, "-------size after ANEW analysis = " + tweets.size() );
 
-		    // TEST
-		    List<GsonObj> objList = new ArrayList<GsonObj>();
-		    for (ParsedTweet t : tweets) {
-		    	objList.add(t.getGsonObj());
-		    }
-		    results = GsonObj.GsonFormatter(objList);
+			    // TEST
+			    List<GsonObj> objList = new ArrayList<GsonObj>();
+			    for (ParsedTweet t : tweets) {
+			    	objList.add(t.getGsonObj());
+			    }
+			    results = GsonObj.GsonFormatter(objList);
+			}
+			logger.log(Level.INFO, "-------results = " + results);
+			resp.setContentType("text/plain");
+			resp.setCharacterEncoding("UTF-8");
+			resp.getWriter().write(results);
+		} else {
+			logger.log(Level.INFO, "-------results = " + keyword2);
+			
 		}
-		logger.log(Level.INFO, "-------results = " + results);
-		resp.setContentType("text/plain");
-		resp.setCharacterEncoding("UTF-8");
-		resp.getWriter().write(results);
+		
 	}
 	
 	@Override

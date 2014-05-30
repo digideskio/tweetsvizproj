@@ -13,6 +13,15 @@ $(function() {
         $('#resultcontent').addClass('animated fadeInRight');
         event.preventDefault();
     });
+    $('#compare').click(function () {
+        $("#keyword2").toggle(this.checked);
+        if(this.checked) {
+        	$("#searchfd").height(110);
+        	
+        } else {
+        	$("#searchfd").height(55);
+        }
+    });
 });
 
 $(window).scroll(function() {

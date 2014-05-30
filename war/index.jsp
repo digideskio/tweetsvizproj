@@ -12,6 +12,9 @@
 <link rel="stylesheet" type="text/css" href="./res/css/blue.css" />
 <link rel="stylesheet" type="text/css" href="./res/css/animate.min.css" />
 <link rel="stylesheet" type="text/css" href="./res/css/scatter_plot_3d.css"/>
+
+  <script src="res/js/pace.min.js"></script>
+  <link href="res/css/themes/pace-theme-barber-shop.css" rel="stylesheet" />
 <title>Tweets Sentiment Visualization</title>
 </head>
 
@@ -25,7 +28,7 @@
 	<script type="text/javascript" src="./res/js/highcharts-3d.js"></script>
 	<script type="text/javascript" src="./res/js/exporting.js"></script>
 	<script type="text/javascript" src="./res/js/scatter_plot_3d.js"></script>
-    	
+    <script type="text/javascript" src="./res/js/compare.js"></script>
 	<div class="hide konami"></div>
 	<header>
 	<div class="ie-lame">it seems internet explorer is too lame to
@@ -95,7 +98,9 @@
 
 			<div id="searchfd">
 				<form>
-					<input type="text" id="keyword" placeholder="Type anything you wanna know here" />
+					<input type="text" id="keyword" placeholder="Type anything here" />
+					<input type="text" id="keyword2" style="display:none" placeholder="Something else to compare with" />
+					<input type="checkbox" id="compare">Compare<br>
 					<input type="submit" id="search" class="solid" value="Search" />
 					<div id="tempresults" style="height:1500px; width:1000px;"></div>
 				</form>
@@ -109,7 +114,7 @@
 			<input id="t-2" name="tabbed-tabs" type="radio" /> <label for="t-2"
 				class="tabs shadow entypo-paper-plane">Form</label> <!-- Third tab input and label -->
 			<input id="t-3" name="tabbed-tabs" type="radio" /> <label for="t-3"
-				class="tabs shadow entypo-menu">Table</label> <!-- Fourth tab input and label -->
+				class="tabs shadow entypo-menu">Compare</label> <!-- Fourth tab input and label -->
 			<input id="t-4" name="tabbed-tabs" type="radio" /> <label for="t-4"
 				class="tabs shadow entypo-star">Icons</label> <!-- Fifth tab input and label -->
 			<input id="t-5" name="tabbed-tabs" type="radio" /> <label for="t-5"
@@ -355,298 +360,11 @@
 
 				<!-- Tab 3 content -->
 				<div class="tab-3">
-					<div class="row">
-						<div class="cell w-100">
-							<div class="title large">Table preview</div>
-						</div>
-					</div>
-					<div class="row">
-						<div class="cell w-100">
-							<p class="normal">
-								<b>This is a sample table preview</b>. Ridiculus habitasse mus
-								amet dignissim penatibus nec cursus massa turpis a dis hac sed,
-								nec! Lectus eu. Platea aliquet lorem phasellus enim ut in lorem
-								et? Penatibus facilisis, tristique elit.
-							</p>
-						</div>
-					</div>
-					<div class="row">
-						<div class="cell w-100">
-							<div class="title small icon entypo-chart-line">Data
-								preview</div>
-						</div>
-					</div>
-					<div class="clrfx mt-10"></div>
-					<!-- Blue headline table -->
-					<div class="row">
-						<!-- Column 1 -->
-						<div class="cell w-15 table first blue">
-							<div class="cell w-100">
-								<div class="title table headline">Headline</div>
-							</div>
-							<div class="cell w-100">
-								<p class="normal">Section 1</p>
-							</div>
-							<div class="cell w-100">
-								<p class="normal">Section 2</p>
-							</div>
-							<div class="cell w-100">
-								<p class="normal">Section 3</p>
-							</div>
-							<div class="cell w-100">
-								<p class="normal">Section 4</p>
-							</div>
-							<div class="cell w-100">
-								<p class="normal">Section 5</p>
-							</div>
-							<div class="clrfx mt-5"></div>
-						</div>
-						<!-- Column 2 -->
-						<div class="cell w-15">
-							<div class="cell w-100">
-								<div class="title table">Title 1</div>
-							</div>
-							<div class="cell w-100">
-								<p class="normal">Data 1</p>
-							</div>
-							<div class="cell w-100">
-								<p class="normal">Data 2</p>
-							</div>
-							<div class="cell w-100">
-								<p class="normal">Data 3</p>
-							</div>
-							<div class="cell w-100">
-								<p class="normal">Data 4</p>
-							</div>
-							<div class="cell w-100">
-								<p class="normal">Data 5</p>
-							</div>
-						</div>
-						<!-- Column 3 -->
-						<div class="cell w-15">
-							<div class="cell w-100">
-								<div class="title table">Title 3</div>
-							</div>
-							<div class="cell w-100">
-								<p class="normal">Data 1</p>
-							</div>
-							<div class="cell w-100">
-								<p class="normal">Data 2</p>
-							</div>
-							<div class="cell w-100">
-								<p class="normal">Data 3</p>
-							</div>
-							<div class="cell w-100">
-								<p class="normal">Data 4</p>
-							</div>
-							<div class="cell w-100">
-								<p class="normal">Data 5</p>
-							</div>
-						</div>
-						<!-- Column 4 -->
-						<div class="cell w-15">
-							<div class="cell w-100">
-								<div class="title table">Title 4</div>
-							</div>
-							<div class="cell w-100">
-								<p class="normal">Data 1</p>
-							</div>
-							<div class="cell w-100">
-								<p class="normal">Data 2</p>
-							</div>
-							<div class="cell w-100">
-								<p class="normal">Data 3</p>
-							</div>
-							<div class="cell w-100">
-								<p class="normal">Data 4</p>
-							</div>
-							<div class="cell w-100">
-								<p class="normal">Data 5</p>
-							</div>
-						</div>
-						<!-- Column 5 -->
-						<div class="cell w-15 table exposed">
-							<div class="cell w-100">
-								<div class="title table">Title 5</div>
-							</div>
-							<div class="cell w-100">
-								<p class="normal">Data 1</p>
-							</div>
-							<div class="cell w-100">
-								<p class="normal">Data 2</p>
-							</div>
-							<div class="cell w-100">
-								<p class="normal">Data 3</p>
-							</div>
-							<div class="cell w-100">
-								<p class="normal">Data 4</p>
-							</div>
-							<div class="cell w-100">
-								<p class="normal">Data 5</p>
-							</div>
-						</div>
-						<!-- Column 6 -->
-						<div class="cell w-15">
-							<div class="cell w-100">
-								<div class="title table">Title 6</div>
-							</div>
-							<div class="cell w-100">
-								<p class="normal">Data 1</p>
-							</div>
-							<div class="cell w-100">
-								<p class="normal">Data 2</p>
-							</div>
-							<div class="cell w-100">
-								<p class="normal">Data 3</p>
-							</div>
-							<div class="cell w-100">
-								<p class="normal">Data 4</p>
-							</div>
-							<div class="cell w-100">
-								<p class="normal">Data 5</p>
-							</div>
-						</div>
-					</div>
-					<div class="clrfx mt-10"></div>
-					<!-- Black headline table -->
-					<div class="row">
-						<!-- Column 1 -->
-						<div class="cell w-15 table first black">
-							<div class="cell w-100">
-								<div class="title table headline">Headline</div>
-							</div>
-							<div class="cell w-100">
-								<p class="normal">Section 1</p>
-							</div>
-							<div class="cell w-100">
-								<p class="normal">Section 2</p>
-							</div>
-							<div class="cell w-100">
-								<p class="normal">Section 3</p>
-							</div>
-							<div class="cell w-100">
-								<p class="normal">Section 4</p>
-							</div>
-							<div class="cell w-100">
-								<p class="normal">Section 5</p>
-							</div>
-							<div class="clrfx mt-5"></div>
-						</div>
-						<!-- Column 2 -->
-						<div class="cell w-15">
-							<div class="cell w-100">
-								<div class="title table">Title 1</div>
-							</div>
-							<div class="cell w-100">
-								<p class="normal">Data 1</p>
-							</div>
-							<div class="cell w-100">
-								<p class="normal">Data 2</p>
-							</div>
-							<div class="cell w-100">
-								<p class="normal">Data 3</p>
-							</div>
-							<div class="cell w-100">
-								<p class="normal">Data 4</p>
-							</div>
-							<div class="cell w-100">
-								<p class="normal">Data 5</p>
-							</div>
-						</div>
-						<!-- Column 3 -->
-						<div class="cell w-15">
-							<div class="cell w-100">
-								<div class="title table">Title 3</div>
-							</div>
-							<div class="cell w-100">
-								<p class="normal">Data 1</p>
-							</div>
-							<div class="cell w-100">
-								<p class="normal">Data 2</p>
-							</div>
-							<div class="cell w-100">
-								<p class="normal">Data 3</p>
-							</div>
-							<div class="cell w-100">
-								<p class="normal">Data 4</p>
-							</div>
-							<div class="cell w-100">
-								<p class="normal">Data 5</p>
-							</div>
-						</div>
-						<!-- Column 4 -->
-						<div class="cell w-15 table exposed">
-							<div class="cell w-100">
-								<div class="title table">Title 4</div>
-							</div>
-							<div class="cell w-100">
-								<p class="normal">Data 1</p>
-							</div>
-							<div class="cell w-100">
-								<p class="normal">Data 2</p>
-							</div>
-							<div class="cell w-100">
-								<p class="normal">Data 3</p>
-							</div>
-							<div class="cell w-100">
-								<p class="normal">Data 4</p>
-							</div>
-							<div class="cell w-100">
-								<p class="normal">Data 5</p>
-							</div>
-						</div>
-						<!-- Column 5 -->
-						<div class="cell w-15">
-							<div class="cell w-100">
-								<div class="title table">Title 5</div>
-							</div>
-							<div class="cell w-100">
-								<p class="normal">Data 1</p>
-							</div>
-							<div class="cell w-100">
-								<p class="normal">Data 2</p>
-							</div>
-							<div class="cell w-100">
-								<p class="normal">Data 3</p>
-							</div>
-							<div class="cell w-100">
-								<p class="normal">Data 4</p>
-							</div>
-							<div class="cell w-100">
-								<p class="normal">Data 5</p>
-							</div>
-						</div>
-						<!-- Column 6 -->
-						<div class="cell w-15">
-							<div class="cell w-100">
-								<div class="title table">Title 6</div>
-							</div>
-							<div class="cell w-100">
-								<p class="normal">Data 1</p>
-							</div>
-							<div class="cell w-100">
-								<p class="normal">Data 2</p>
-							</div>
-							<div class="cell w-100">
-								<p class="normal">Data 3</p>
-							</div>
-							<div class="cell w-100">
-								<p class="normal">Data 4</p>
-							</div>
-							<div class="cell w-100">
-								<p class="normal">Data 5</p>
-							</div>
-						</div>
-					</div>
-					<div class="row">
-						<div class="cell w-100">
-							<p class="small">
-								<span class="icon entypo-clock"></span>Augue risus turpis a
-								aliquam augue, nisi. Cum magna ultrices adipiscing platea sed
-								vel porttitor in diam.
-							</p>
-						</div>
-					</div>
+				
+				
+				<div id="containerCompare1" style="width: 380px; float: left; margin: 0 auto"></div>
+				<div id="containerCompare2" style="width: 380px; float: left; margin: 0 auto"></div>
+				
 				</div>
 				<!-- / Tab 3 content -->
 

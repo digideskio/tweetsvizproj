@@ -4,17 +4,36 @@
 var globalv;
 $(document).ready(function() {
 	$('#search').click(function(event) {
-		var keyword = $('#keyword').val();
-		$.get('TweetsVizJSPServlet', {
-			keyword : keyword
-		}, function(responseText) {
-			
-			// JSON TEST
-			var result = $.parseJSON(responseText);
-			var sdata = [];
-			sdata.push(result);
-            display3dScatterView(sdata);
-		});
+		if($('#compare').is(":checked")) {
+			var keyword = $('#keyword').val();
+			var keyword2 = $('#keyword2').val();
+			$.get('TweetsVizJSPServlet', {
+				keyword : keyword,
+				keyword2 : keyword2
+			}, function(responseText) {
+				
+				// JSON TEST
+				var result = $.parseJSON(responseText);
+				var sdata = [];
+				sdata.push(result);
+	            display3dScatterView(sdata);
+	            Pace.stop();
+			});
+		} else {
+			var keyword = $('#keyword').val();
+			$.get('TweetsVizJSPServlet', {
+				keyword : keyword
+			}, function(responseText) {
+				
+				// JSON TEST
+				var result = $.parseJSON(responseText);
+				var sdata = [];
+				sdata.push(result);
+	            display3dScatterView(sdata);
+	            Pace.stop();
+			});
+		}
+		
 	});
 });
 
