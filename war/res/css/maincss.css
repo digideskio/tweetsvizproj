@@ -1184,3 +1184,7 @@ input[type=text].error:focus {
         margin: 2em 0 0
     }
 }
+
+#info_icon {
+	background: res/media/images/info.png
+}

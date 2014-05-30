@@ -2,7 +2,7 @@ $(function() {
 
     initAnimation();
     homeChange();
-    
+   
     $("#resultcontent").hide();
     $("#searchfd").submit(function(event) {
         $("#resultcontent").show();

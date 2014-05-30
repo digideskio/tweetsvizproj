@@ -6,6 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="chrome=1" />
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<link rel="stylesheet" href="//code.jquery.com/ui/1.10.4/themes/smoothness/jquery-ui.css">
 <link rel="stylesheet" type="text/css" href="./res/css/searchstyles.css" />
 <link rel="stylesheet" type="text/css" href="./res/css/maincss.css" />
 <link rel="stylesheet" type="text/css" href="./res/css/tabbed.css" />
@@ -19,7 +20,7 @@
 </head>
 
 <body style="zoom: 1;">
-
+	<script src="//code.jquery.com/ui/1.10.4/jquery-ui.js"></script>
 	<script type="text/javascript" src="./res/js/jquery.min.js"></script>
 	<script type="text/javascript" src="./res/js/plugins.js"></script>
 	<script type="text/javascript" src="./res/js/script.js"></script>
@@ -95,12 +96,13 @@
 				work done by Yuexing Luo and Mingyu Liu from University of Waterloo;</p>
 			<p class="animate">Let's start a new inquiry now and find out how
 				awesome it is!</p>
-
+			<p><a id="infotips" href="#" title="Check 'Compare' if you wanna compare two things">#Search Tips</a></p>
 			<div id="searchfd">
 				<form>
 					<input type="text" id="keyword" placeholder="Type anything here" />
 					<input type="text" id="keyword2" style="display:none" placeholder="Something else to compare with" />
 					<input type="checkbox" id="compare">Compare<br>
+					
 					<input type="submit" id="search" class="solid" value="Search" />
 					<div id="tempresults" style="height:1500px; width:1000px;"></div>
 				</form>
@@ -109,9 +111,9 @@
 
 		<div id="resultcontent" class="wrapperresult" >
 			<section id="tabbed"> <!-- First tab input and label --> <input
-				id="t-1" name="tabbed-tabs" type="radio" checked="checked" /> <label
+				id="t-1" name="tabbed-tabs" type="radio" /> <label
 				for="t-1" class="tabs shadow entypo-pencil">Compare</label> <!-- Second tab input and label -->
-			<input id="t-2" name="tabbed-tabs" type="radio" /> <label for="t-2"
+			<input id="t-2" name="tabbed-tabs" type="radio" checked="checked"/> <label for="t-2"
 				class="tabs shadow entypo-paper-plane">3D View</label> <!-- Third tab input and label -->
 			
 			<div class="wrapper shadow">
