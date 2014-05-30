@@ -20,8 +20,9 @@
 </head>
 
 <body style="zoom: 1;">
-	<script src="//code.jquery.com/ui/1.10.4/jquery-ui.js"></script>
+	
 	<script type="text/javascript" src="./res/js/jquery.min.js"></script>
+	<script src="//code.jquery.com/ui/1.10.4/jquery-ui.js"></script>
 	<script type="text/javascript" src="./res/js/plugins.js"></script>
 	<script type="text/javascript" src="./res/js/script.js"></script>
 	<!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.4.1/d3.min.js"></script>  -->
