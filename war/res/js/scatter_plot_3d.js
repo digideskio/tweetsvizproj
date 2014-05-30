@@ -201,10 +201,10 @@ function displayCompareView(sdata) {
     var words2 = sdata.data2.topwords;
 
     for (var i = 0; i < words1.length; i++) {
-        topWordsEle1.append("<p>" + i + 1 + ": " + words1[i] + "</p><br/>");
+        topWordsEle1.append("<p>" + (i + 1) + ": " + words1[i] + "</p><br/>");
     };
     for (var i = 0; i < words2.length; i++) {
-        topWordsEle2.append("<p>" + i + 1 + ": " + words2[i] + "</p><br/>");
+        topWordsEle2.append("<p>" + (i + 1) + ": " + words2[i] + "</p><br/>");
     };
 
     var topTweetsEle1 = $("#topTweets1");
@@ -214,10 +214,10 @@ function displayCompareView(sdata) {
     var tweets2 = sdata.data2.topmsg;
 
     for (var i = 0; i < tweets1.length; i++) {
-        topTweetsEle1.append("<p>" + i + 1 + ": " + tweets1[i] + "</p><br/>");
+        topTweetsEle1.append("<p>" + (i + 1) + ": " + tweets1[i] + "</p><br/>");
     };
     for (var i = 0; i < tweets2.length; i++) {
-        topTweetsEle2.append("<p>" + i + 1 + ": " + tweets2[i] + "</p><br/>");
+        topTweetsEle2.append("<p>" + (i + 1) + ": " + tweets2[i] + "</p><br/>");
     };
 }
 
