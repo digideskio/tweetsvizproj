@@ -364,6 +364,65 @@
 				
 				<div id="containerCompare1" style="width: 380px; float: left; margin: 0 auto"></div>
 				<div id="containerCompare2" style="width: 380px; float: left; margin: 0 auto"></div>
+				<div class="row">
+						<div class="cell w-49">
+							<div class="cell w-100">
+								<!-- Small title -->
+								<div class="title small">1. Most Frequent Words</div>
+							</div>
+							<div class="cell w-100">
+								<!-- Small paragraph -->
+								<p class="normal" id="topWords1">
+									<b>1. Word</b>
+									<br/> 
+									<b>2. Word
+									</b>
+								</p>
+							</div>
+							<div class="cell w-100">
+								<!-- Small title -->
+								<div class="title small">2. Top 5 Tweets with Likes or Retweets</div>
+							</div>
+							<div class="cell w-100">
+								<!-- Small paragraph -->
+								<p class="normal" id="topTweets1">
+									<b>1. Tweet</b>
+									<br/> 
+									<b>2. Tweet
+									</b>
+								</p>
+							</div>
+						</div>
+						<div class="cell w-49">
+							<div class="cell w-100">
+								<!-- Small title -->
+								<div class="title small">1. Most Frequent Words</div>
+							</div>
+							<div class="cell w-100">
+								<!-- Small paragraph -->
+								<p class="normal" id="topWords2">
+									<b>1. Word</b>
+									<br/> 
+									<b>2. Word
+									</b>
+								</p>
+							</div>
+							<div class="cell w-100">
+								<!-- Small title -->
+								<div class="title small">2. Top 5 Tweets with Likes or Retweets</div>
+							</div>
+							<div class="cell w-100">
+								<!-- Small paragraph -->
+								<p class="normal" id="topTweets2">
+									<b>1. Tweet</b>
+									<br/> 
+									<b>2. Tweet
+									</b>
+								</p>
+							</div>
+						</div>
+						
+					</div>
 				
 				</div>
 				<!-- / Tab 3 content -->

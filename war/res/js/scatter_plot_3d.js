@@ -29,12 +29,15 @@ $(document).ready(function() {
 				}
 			});
 		} else {
+			
 			var keyword = $('#keyword').val();
 			var isCompareView = "false";
 			$.get('TweetsVizJSPServlet', {
 				keyword : keyword
 			}, function(responseText) {
 				// JSON TEST
+				var result;
+				var sdata = [];
 				try {
 					result = $.parseJSON(responseText);
 					sdata.push(result);
