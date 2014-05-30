@@ -25,11 +25,15 @@ public class ParsedTweet {
 	public List<String> bagOfEmoticons;
 	public String lang; // two-letter iso language code
 	public TweetAnalysis analyzer;
-	private final Logger logger = Logger.getLogger(ParsedTweet.class.getName());
-
+	public double confidence; // # of valid ANEW words / bagOfWords.size
+	public double confidenceANEWfq; 
+	
 	// TODO
 	public List<ParsedTweet> retweets;
 	public boolean numOfFavorites;
+	
+	
+	private final Logger logger = Logger.getLogger(ParsedTweet.class.getName());
 	
 	public ParsedTweet(Status t) {
 		user = t.getUser().getScreenName();
@@ -60,6 +64,7 @@ public class ParsedTweet {
     			logger.log(Level.INFO, "WORD HIT!" + word);
     		}
     	}
+		calConfidence(dic);
     	for (String e: bagOfEmoticons) {
     		ANEWEntry entry = edic.getEntrybyWord(e);
     		if(entry != null) {
@@ -69,10 +74,36 @@ public class ParsedTweet {
     	}
 	}
 	
-	// TODO
 	// description of each data point showing in the tooltip
 	public GsonObj getGsonObj() {
 		return new GsonObj(this);
+	}
+	
+	// exclude emoticons
+	private void calConfidence(ANEWDicWrapper dic) {
+		if (bagOfWords != null && bagOfWords.size() != 0 && analyzer!= null) {
+			confidence = (double)analyzer.words.size() / (double)bagOfWords.size();
+			logger.log(Level.INFO, "===== analyzer.words.size===: " + analyzer.words.size());
+			logger.log(Level.INFO, "===== bagOfWords.size ===: " + bagOfWords.size());
+			logger.log(Level.INFO, "===== analyzer confidence===: " + confidence);
+			if (analyzer.words.size() != 0) {
+				// ANEW fq confidence
+				int sum = 0;
+				for (ANEWEntry e : analyzer.words) {
+					sum += e.getWdnum();
+				}
+				confidenceANEWfq = normalize(dic.fqMin, dic.fqMax, sum/analyzer.words.size());
+			}
+		}
+	}
+	
+	private double normalize(double min, double max, double value) {
+		if (max >= min && value >= min && value <= max) {
+			return (value - min) / (max - min);
+		} else {
+			logger.log(Level.WARNING, "unable to normalize!");
+			return -1;
+		}
 	}
 	
 	public String getANEWCoord() {

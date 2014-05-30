@@ -12,8 +12,10 @@ import cs886.w14.proj.sentiment.ANEWEntry;
 
 
 public class ANEWDicWrapper {
-
-	String _anewDic;
+	
+	public double fqAvg, fqMin, fqMax;
+	private String _anewDic;
+	
 	private final Logger logger = Logger.getLogger(ANEWDicWrapper.class.getName());
 	private List<ANEWEntry> entries;
 
@@ -48,7 +50,21 @@ public class ANEWDicWrapper {
 		} catch (IOException e) {
 			logger.log(Level.WARNING, "File not found "+e.toString());
 		}
-
+		initANEWDicWrapper();
+	}
+	
+	private void initANEWDicWrapper() {
+		if (entries != null && entries.size() != 0) {
+			double min = 100000, max = -1, sum = 0;
+			for (ANEWEntry e : entries) {
+				if (e.getWdnum() < min) min = e.getWdnum();
+				if (e.getWdnum() > max) max = e.getWdnum();
+				sum += e.getWdnum();
+			}
+			this.fqAvg = sum / entries.size(); 
+			this.fqMin = min;
+			this.fqMax = max;
+		}
 	}
 
 }

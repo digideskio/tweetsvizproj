@@ -24,4 +24,7 @@ public class RuntimeParams {
 			+ "connection and try again.";
 	
 	public static final int MIN_NUM_OF_VALID_WORDS = 2;
+	
+	public static final int SCATTER_RADIUS_MIN = 5;
+	public static final int SCATTER_RADIUS_MAX_INTERVAL = 10;
 }
