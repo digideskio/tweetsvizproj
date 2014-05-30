@@ -6,6 +6,12 @@
 	padding-bottom:2cm;
 }
 
-#datalabels {
-	width: 200px;
+
+.datalabels b {
+
+	word-wrap: break-word;
+}
+
+.highcharts-tooltip {
+	min-width: 300px;
 }
