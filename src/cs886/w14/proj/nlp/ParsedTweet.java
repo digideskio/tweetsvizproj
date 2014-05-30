@@ -20,23 +20,21 @@ public class ParsedTweet implements Comparable<ParsedTweet>{
 	public String user;
 	public Date dateTime;
 	public double []loc; // latitude and longitude
-	public String msg;
+	public String msg, originalMsg;
 	public List<String> bagOfWords;
 	public List<String> bagOfEmoticons;
 	public String lang; // two-letter iso language code
 	public TweetAnalysis analyzer;
 	public double confidence; // # of valid ANEW words / bagOfWords.size
 	public double confidenceANEWfq; 
-	
-	// TODO
 	public int numOfFavorites, numOfRetweets;
-	
 	
 	private final Logger logger = Logger.getLogger(ParsedTweet.class.getName());
 	
 	public ParsedTweet(Status t) {
 		user = t.getUser().getScreenName();
 		dateTime = t.getCreatedAt();
+		originalMsg = t.getText();
 		msg = removeUrl(t.getText());
 		loc = getTweetLocInfo(t);
 		lang = t.getLang();
@@ -76,7 +74,7 @@ public class ParsedTweet implements Comparable<ParsedTweet>{
 	}
 	
 	// description of each data point showing in the tooltip
-	public JsonSingleViewObj getGsonObj() {
+	public JsonSingleViewObj JsonSingleViewObj() {
 		return new JsonSingleViewObj(this);
 	}
 	

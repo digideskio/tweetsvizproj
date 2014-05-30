@@ -57,7 +57,12 @@ public class Twitter4JDriver {
 		Query query = new Query(keyword);
 		long lastID = Long.MAX_VALUE;
 		ArrayList<Status> tweets = new ArrayList<Status>();
+		int queryTime = 0;
 		while (tweets.size() < RuntimeParams.MAX_NUM_OF_TWEETS) {
+			if ((queryTime++) > RuntimeParams.MAX_QUERY_TIMES) {
+				break;
+			}
+			
 			if (RuntimeParams.MAX_NUM_OF_TWEETS - tweets.size() > 100) {
 				query.setCount(100);
 			} else {
@@ -66,6 +71,9 @@ public class Twitter4JDriver {
 				
 			try {
 				QueryResult result = twitter.search(query);
+				if(result == null) {
+					logger.log(Level.SEVERE, "no results found");
+				} 
 				tweets.addAll(result.getTweets());
 				for (Status t : tweets) {
 					if (t.getId() < lastID) lastID = t.getId();
@@ -73,7 +81,7 @@ public class Twitter4JDriver {
 			} catch (TwitterException te) {
 				te.printStackTrace();
 				logger.log(Level.SEVERE, "Failed to search more tweets: " + te.getMessage());
-				System.exit(-1);
+				return null;
 			}
 			query.setMaxId(lastID - 1);
 		}

@@ -14,11 +14,11 @@ public class RuntimeParams {
 	 * maximum num of tweets within one query
 	 */
 	public static final int MAX_NUM_OF_TWEETS = 128;
-	
+	public static final int MAX_QUERY_TIMES = 20;
 	/**
 	 * The message displayed to the user when the server cannot be reached or
 	 * returns an error.
-	 */
+	 */ß
 	public static final String SERVER_ERROR = "An error occurred while "
 			+ "attempting to contact the server. Please check your network "
 			+ "connection and try again.";
@@ -27,6 +27,8 @@ public class RuntimeParams {
 	
 	public static final int SCATTER_RADIUS_MIN = 5;
 	public static final int SCATTER_RADIUS_MAX_INTERVAL = 10;
+	public static final int SCATTER_HIGHLIGHTS_RADIUS = 5;
+	
 	
 	public static final int NUM_OF_TOP_FAV_RETWEETS = 5;
 	public static final int NUM_OF_TOP_COMMON_WORDS = 5;

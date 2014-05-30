@@ -12,6 +12,7 @@ import org.json.simple.JSONObject;
 
 import cs886.w14.proj.RuntimeParams;
 import cs886.w14.proj.nlp.ParsedTweet;
+import cs886.w14.proj.sentiment.ANEWEntry;
 import cs886.w14.proj.util.Color3d;
 
 public class JsonSingleViewObj {
@@ -47,7 +48,7 @@ public class JsonSingleViewObj {
 		x = pt.analyzer.getVal();
 		y = pt.analyzer.getAro();
 		z = pt.analyzer.getDom();
-		name = pt.msg;
+		name = pt.originalMsg;
 		DecimalFormat df = new DecimalFormat("#.#");      
 		cfSize = RuntimeParams.SCATTER_RADIUS_MIN + RuntimeParams.SCATTER_RADIUS_MAX_INTERVAL * Double.valueOf(df.format(pt.confidence));
 		cfAlpha = Double.valueOf(df.format(pt.confidenceANEWfq));
@@ -56,6 +57,17 @@ public class JsonSingleViewObj {
 		Color3d rgb = Color3d.getGradientColor3d(Color3d.GRADIENT_COLOR_LEVEL, gindex);
 		color = new Color3d(rgb.r, rgb.g, rgb.b, cfAlpha).toRGBAValue();
 		logger.log(Level.INFO, "=====color===: " + color);
+	}
+	
+	public JsonSingleViewObj(ANEWEntry e) {
+		x = e.getValMn();
+		y = e.getAroMn();
+		z = e.getDomMn();
+		name = e.getWord();
+		color = "rgba(204,248,255,1)";
+		cfSize = RuntimeParams.SCATTER_HIGHLIGHTS_RADIUS;
+		cfAlpha = 1;
+		logger.log(Level.INFO, "=====include highlights word = : " + name);
 	}
 	
 	@Override

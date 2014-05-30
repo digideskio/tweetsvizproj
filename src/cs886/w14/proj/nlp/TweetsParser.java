@@ -36,6 +36,9 @@ public class TweetsParser {
 	
 	private final static Logger logger = Logger.getLogger(TweetsParser.class.getName());
 	
+	public static ANEWDicWrapper getDic() {
+		return _dic;
+	}
 	/*
 	 * parse all tweets (status)
 	 */

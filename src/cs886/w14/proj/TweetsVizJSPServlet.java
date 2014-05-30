@@ -61,9 +61,18 @@ public class TweetsVizJSPServlet extends HttpServlet {
 				// get query results from twitter API
 				Twitter4JDriver.getInstance().init();
 			    ArrayList<Status> rawtweets = Twitter4JDriver.getInstance().getQueryResults(keyword);
-			    logger.log(Level.INFO, "-------revceived tweets size = " + rawtweets.size());
-			    tweets = TweetsParser.ParseTweetsFromWeb(rawtweets, stopwords);
-			    results = JsonParser.getSingleViewData(tweets);
+			    if (rawtweets != null) {
+			    	if (rawtweets.size() != 0) {
+			    		logger.log(Level.INFO, "-------revceived tweets size = " + rawtweets.size());
+					    tweets = TweetsParser.ParseTweetsFromWeb(rawtweets, stopwords);
+					    results = JsonParser.getSingleViewData(tweets, TweetsParser.getDic().getEntriesHighlighted());
+			    	} else {
+			    		results = "no tweets found for query: '" + keyword +"'\n";
+			    	}
+			    } else {
+			    	results = "Twitter API is busy...please try again later";
+			    }
+			    
 			}
 			
 		// Compare View 
@@ -72,13 +81,25 @@ public class TweetsVizJSPServlet extends HttpServlet {
 			Twitter4JDriver.getInstance().init();
 		    ArrayList<Status> rawtweets1 = Twitter4JDriver.getInstance().getQueryResults(keyword);
 		    ArrayList<Status> rawtweets2 = Twitter4JDriver.getInstance().getQueryResults(keyword2);
-		    logger.log(Level.INFO, "-------revceived tweets (keyword1 =" + keyword + " with size = " + rawtweets1.size());
-		    logger.log(Level.INFO, "-------revceived tweets (keyword2 =" + keyword2 + " with size = " + rawtweets2.size());
 		    
-		    tweets = TweetsParser.ParseTweetsFromWeb(rawtweets1, stopwords);
-		    tweets2 = TweetsParser.ParseTweetsFromWeb(rawtweets2, stopwords);
-		    results = JsonParser.getCompareViewData(tweets, tweets2);
-		    logger.log(Level.INFO, "-------compare view results = \n" + results);
+		    if (rawtweets1 != null && rawtweets2 != null) {
+		    	if (rawtweets1.size() != 0 && rawtweets2.size() != 0) {
+		    		logger.log(Level.INFO, "-------revceived tweets (keyword1 =" + keyword + " with size = " + rawtweets1.size());
+				    logger.log(Level.INFO, "-------revceived tweets (keyword2 =" + keyword2 + " with size = " + rawtweets2.size());
+				    
+				    tweets = TweetsParser.ParseTweetsFromWeb(rawtweets1, stopwords);
+				    tweets2 = TweetsParser.ParseTweetsFromWeb(rawtweets2, stopwords);
+				    results = JsonParser.getCompareViewData(tweets, tweets2);
+				    logger.log(Level.INFO, "-------compare view results = \n" + results);
+		    	} else if (rawtweets1.size() == 0) {
+		    		results = "no tweets found for query: '" + keyword +"'\n";
+		    	} else if (rawtweets2.size() == 0) {
+		    		results = "no tweets found for query: '" + keyword2 +"'\n";
+		    	}
+		    } else {
+		    	results = "Twitter API is busy...please try again later";
+		    }
+		    
 		}
 		
 		// pass results to front side

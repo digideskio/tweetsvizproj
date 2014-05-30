@@ -12,17 +12,21 @@ import cs886.w14.proj.sentiment.ANEWEntry;
 
 
 public class ANEWDicWrapper {
-	
+	public static final String []_anewHighlight = {"lively", "tense", "nervous", "stress", "upset", "annoy", "sad", "unhappy", "depressed", "bored", "subdued", "calm", "relaxed", "serene", "contents/satisfactory", "pleasure", "happy", "elated", "excite(excitement)", "alert"};
 	public double fqAvg, fqMin, fqMax;
-	private String _anewDic;
 	
 	private final Logger logger = Logger.getLogger(ANEWDicWrapper.class.getName());
-	private List<ANEWEntry> entries;
-
+	private List<ANEWEntry> entries, entriesHighlighted;
+	private List<String> highlights = new ArrayList<String>();
+	
 	public List<ANEWEntry> getEntries() {
 		return entries;
 	}
 
+	public List<ANEWEntry> getEntriesHighlighted() {
+		return entriesHighlighted;
+	}
+	
 	public ANEWEntry getEntrybyWord(String word) {
 	    for (ANEWEntry entry : entries) {
 	    	// match word or wordstem
@@ -51,6 +55,7 @@ public class ANEWDicWrapper {
 			logger.log(Level.WARNING, "File not found "+e.toString());
 		}
 		initANEWDicWrapper();
+		initANEWDicHighlights();
 	}
 	
 	private void initANEWDicWrapper() {
@@ -64,6 +69,19 @@ public class ANEWDicWrapper {
 			this.fqAvg = sum / entries.size(); 
 			this.fqMin = min;
 			this.fqMax = max;
+		}
+	}
+	
+	// words to be higlighted in 3d scatter plot
+	private void initANEWDicHighlights() {
+		for (int i = 0; i < _anewHighlight.length; i++) {
+			highlights.add(_anewHighlight[i]);
+		}
+		entriesHighlighted = new ArrayList<ANEWEntry>();
+		for (ANEWEntry e : entries) {
+			if (highlights.contains(e.getWord())) {
+				entriesHighlighted.add(e);
+			}
 		}
 	}
 
