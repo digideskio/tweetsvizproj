@@ -14,7 +14,7 @@ import cs886.w14.proj.TweetsVizJSPServlet;
 import cs886.w14.proj.sentiment.ANEWDicWrapper;
 import cs886.w14.proj.sentiment.ANEWEntry;
 import cs886.w14.proj.sentiment.TweetAnalysis;
-import cs886.w14.proj.util.GsonObj;
+import cs886.w14.proj.util.GsonSngleViewObj;
 
 public class ParsedTweet {
 	public String user;
@@ -29,8 +29,7 @@ public class ParsedTweet {
 	public double confidenceANEWfq; 
 	
 	// TODO
-	public List<ParsedTweet> retweets;
-	public boolean numOfFavorites;
+	public int numOfFavorites, numOfRetweets;
 	
 	
 	private final Logger logger = Logger.getLogger(ParsedTweet.class.getName());
@@ -43,6 +42,8 @@ public class ParsedTweet {
 		lang = t.getLang();
 		bagOfEmoticons = new ArrayList<String>();
 		analyzer = new TweetAnalysis();
+		numOfRetweets = t.getRetweetCount();
+		numOfFavorites = t.getFavoriteCount();
 	}
 
 	public String toString() {
@@ -75,8 +76,8 @@ public class ParsedTweet {
 	}
 	
 	// description of each data point showing in the tooltip
-	public GsonObj getGsonObj() {
-		return new GsonObj(this);
+	public GsonSngleViewObj getGsonObj() {
+		return new GsonSngleViewObj(this);
 	}
 	
 	// exclude emoticons

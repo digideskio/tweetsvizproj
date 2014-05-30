@@ -10,6 +10,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashSet;
 import java.util.List;
+import java.util.ListIterator;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.util.regex.Matcher;
@@ -20,14 +21,18 @@ import org.tartarus.snowball.util.StemmerException;
 
 import twitter4j.Status;
 import weka.core.Stopwords;
+import cs886.w14.proj.RuntimeParams;
 import cs886.w14.proj.TweetsVizJSPServlet;
+import cs886.w14.proj.sentiment.ANEWDicWrapper;
 import cs886.w14.proj.sentiment.ANEWEntry;
 import cs886.w14.proj.util.Twitter4JDriver;
 
 public class TweetsParser {
-	public static String EMOTICONS_FP = "./nlp/emoticons.txt";
-	public static String splitters = "\r\n\t.,;:'\"()?!/[]=_`~#";
-	public static List<String> blackList = Arrays.asList("\\d*", ".{15}.+", ".", ".*--.*", ".*&.*", ".*@.*");
+	private static String EMOTICONS_FP = "./nlp/emoticons.txt";
+	private static String splitters = "\r\n\t.,;:'\"()?!/[]=_`~#";
+	private static List<String> blackList = Arrays.asList("\\d*", ".{15}.+", ".", ".*--.*", ".*&.*", ".*@.*");
+	private static ANEWDicWrapper _dic = new ANEWDicWrapper("anew/ANEW2010All.txt");
+	private static ANEWDicWrapper _emoticon_dic = new ANEWDicWrapper("anew/ANEWEmoticons.txt");
 	
 	private final static Logger logger = Logger.getLogger(TweetsParser.class.getName());
 	
@@ -42,7 +47,7 @@ public class TweetsParser {
 	    }
 
 	    computeBagOfWords(parsedTweets, stopwords, EnglishSnowballStemmerFactory.getInstance());
-	    return parsedTweets;
+	    return parseSentiment(parsedTweets);
 	  }
 	
 	/*
@@ -102,6 +107,29 @@ public class TweetsParser {
 			logger.log(Level.WARNING, "File not found "+e.toString());
 		}
 		return emoticonsList;
+	}
+	
+	private static List<ParsedTweet> parseSentiment(List<ParsedTweet> tweets) {
+		// generate ANEW parser for each tweet
+	    logger.log(Level.INFO, "-------size after lang filter =" + tweets.size());
+	    for (ParsedTweet t: tweets) {
+	    	logger.log(Level.INFO, "------- new tweets-------");
+	    	logger.log(Level.INFO, "bagofwords = " + t.bagOfWords.toString());
+	    	logger.log(Level.INFO, "emoticons = " + t.bagOfEmoticons.toString());
+	    	t.generateANEWAnalyzer(_dic, _emoticon_dic);
+	    }
+	    
+	    // filter tweets with less than MIN_NUM_OF_VALID_WORDS valid sentimental words
+	    logger.log(Level.INFO, "-------size before ANEW analysis = " + tweets.size() );
+	    ListIterator li = tweets.listIterator();
+	    while(li.hasNext()) {
+	    	ParsedTweet tweet = (ParsedTweet)li.next();
+	    	if(tweet.analyzer.getNumofValidWords() < RuntimeParams.MIN_NUM_OF_VALID_WORDS) {
+	    		li.remove();
+	    	}
+	    }
+	    logger.log(Level.INFO, "-------size after ANEW analysis = " + tweets.size() );
+	    return tweets;
 	}
 	
 }

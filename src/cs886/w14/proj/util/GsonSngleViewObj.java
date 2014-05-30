@@ -13,12 +13,12 @@ import org.json.simple.JSONObject;
 import cs886.w14.proj.RuntimeParams;
 import cs886.w14.proj.nlp.ParsedTweet;
 
-public class GsonObj {
-	private final Logger logger = Logger.getLogger(GsonObj.class.getName());
+public class GsonSngleViewObj {
+	private final Logger logger = Logger.getLogger(GsonSngleViewObj.class.getName());
 	
-	public static String GsonFormatter(List<GsonObj> objList) {
+	public static String GsonFormatter(List<GsonSngleViewObj> objList) {
 		JSONArray list = new JSONArray();
-		for (GsonObj obj : objList) {
+		for (GsonSngleViewObj obj : objList) {
 			JSONObject jobj = new JSONObject();
 			jobj.put("name", obj.name);
 			jobj.put("x", obj.x);
@@ -42,7 +42,7 @@ public class GsonObj {
 	public String color;
 	public double cfAlpha, cfSize;
 	
-	public GsonObj (ParsedTweet pt) {
+	public GsonSngleViewObj (ParsedTweet pt) {
 		x = pt.analyzer.getVal();
 		y = pt.analyzer.getAro();
 		z = pt.analyzer.getDom();

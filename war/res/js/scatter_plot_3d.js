@@ -7,10 +7,10 @@ $(document).ready(function() {
 		if($('#compare').is(":checked")) {
 			var keyword = $('#keyword').val();
 			var keyword2 = $('#keyword2').val();
-			var isCompareView = "true";
 			$.get('TweetsVizJSPServlet', {
 				keyword : keyword,
-				keyword2 : keyword2
+				keyword2 : keyword2,
+				compareview : "true"
 			}, function(responseText) {
 				var result;
 				var sdata = [];
@@ -31,10 +31,12 @@ $(document).ready(function() {
 		} else {
 			
 			var keyword = $('#keyword').val();
-			var isCompareView = "false";
 			$.get('TweetsVizJSPServlet', {
-				keyword : keyword
+				keyword : keyword,
+				compareview : "false"
 			}, function(responseText) {
+				var result;
+				var sdata = [];
 				// JSON TEST
 				var result;
 				var sdata = [];
