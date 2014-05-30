@@ -100,7 +100,7 @@ public class JsonCompareViewObj {
 	    Iterator<ParsedTweet> itr = topFavRetweets.iterator();
 	    while(itr.hasNext()){
 	    	ParsedTweet t = itr.next();
-	    	topMsg.add(t.msg);
+	    	topMsg.add(t.originalMsg);
 	    }
 	    
 	    Iterator<ANEWEntry> itr2 = topCommonWords.iterator();

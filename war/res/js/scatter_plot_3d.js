@@ -196,6 +196,8 @@ function displayCompareView(sdata) {
     //Display texts
     var topWordsEle1 = $("#topWords1");
     var topWordsEle2 = $("#topWords2");
+    topWordsEle1.empty();
+    topWordsEle2.empty();
 
     var words1 = sdata.data1.topwords;
     var words2 = sdata.data2.topwords;
@@ -209,6 +211,8 @@ function displayCompareView(sdata) {
 
     var topTweetsEle1 = $("#topTweets1");
     var topTweetsEle2 = $("#topTweets2");
+    topTweetsEle1.empty();
+    topTweetsEle2.empty();
 
     var tweets1 = sdata.data1.topmsg;
     var tweets2 = sdata.data2.topmsg;
