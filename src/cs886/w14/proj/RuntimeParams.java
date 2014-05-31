@@ -33,4 +33,6 @@ public class RuntimeParams {
 	public static final int NUM_OF_TOP_FAV_RETWEETS = 5;
 	public static final int NUM_OF_TOP_COMMON_WORDS = 5;
 	
+	public static final int THRESHOLD_OF_SATISFACTORY = 6;
+	
 }

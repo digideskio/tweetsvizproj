@@ -46,6 +46,8 @@ public class ParsedTweet implements Comparable<ParsedTweet>{
 
 	public String toString() {
 	    return "user = " + user + "\r\n"
+	    	+ "numOfFavorites = " + numOfFavorites + "\r\n"
+	    	+ "numOfRetweets = " + numOfRetweets + "\r\n"
 	        + "Date and Time = " + dateTime + "\r\n"
 	        + "location = " + loc.toString() + "\r\n"
 	        + "msg = " + msg + "\r\n"

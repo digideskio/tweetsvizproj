@@ -63,8 +63,11 @@ function displayCompareView(sdata) {
     var keyword2 = $('#keyword2').val();
     var view1Satisfied = sdata.data1.percentage * 100;
     var view2Satisfied = sdata.data2.percentage * 100;
-
-
+    var tmp = 100 - view1Satisfied;
+    var view1Unsatisfied = parseFloat(tmp.toFixed(2));
+    tmp = 100 - view2Satisfied;
+    var view2Unsatisfied = parseFloat(tmp.toFixed(2));
+    
     var colors = Highcharts.getOptions().colors,
         categories = ['Satisfied', 'Unsatisfied'],
         name = 'Satisfaction',
@@ -73,7 +76,7 @@ function displayCompareView(sdata) {
 
             color: colors[5]
         }, {
-            y: 100 - view1Satisfied,
+            y: view1Unsatisfied,
 
             color: colors[0]
         }],
@@ -83,7 +86,7 @@ function displayCompareView(sdata) {
             color: colors[5],
 
         }, {
-            y: 100 - view2Satisfied,
+            y: view2Unsatisfied,
 
             color: colors[0]
         }];
@@ -142,7 +145,7 @@ function displayCompareView(sdata) {
             valueSuffix: '%'
         },
         series: [{
-            name: 'Users',
+            name: 'User Percentage',
             data: productData1,
             size: '60%',
 
@@ -178,7 +181,7 @@ function displayCompareView(sdata) {
             valueSuffix: '%'
         },
         series: [{
-            name: 'Users',
+            name: 'User Percentage',
             data: productData2,
             size: '60%',
             dataLabels: {

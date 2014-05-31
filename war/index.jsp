@@ -143,7 +143,7 @@
 						<div class="cell w-49">
 							<div class="cell w-100">
 								<!-- Small title -->
-								<div class="title small">1. Most Frequent Words</div>
+								<div class="title small">&bull; Most Frequent Words</div>
 							</div>
 							<div class="cell w-100">
 								<!-- Small paragraph -->
@@ -153,7 +153,7 @@
 							</div>
 							<div class="cell w-100">
 								<!-- Small title -->
-								<div class="title small">2. Top 5 Tweets with Likes or Retweets</div>
+								<div class="title small">&bull; Top Tweets with Likes or Retweets</div>
 							</div>
 							<div class="cell w-100">
 								<!-- Small paragraph -->
@@ -165,7 +165,7 @@
 						<div class="cell w-49">
 							<div class="cell w-100">
 								<!-- Small title -->
-								<div class="title small">1. Most Frequent Words</div>
+								<div class="title small">&bull; Most Frequent Words</div>
 							</div>
 							<div class="cell w-100">
 								<!-- Small paragraph -->
@@ -175,7 +175,7 @@
 							</div>
 							<div class="cell w-100">
 								<!-- Small title -->
-								<div class="title small">2. Top 5 Tweets with Likes or Retweets</div>
+								<div class="title small">&bull; Top Tweets with Likes or Retweets</div>
 							</div>
 							<div class="cell w-100">
 								<!-- Small paragraph -->

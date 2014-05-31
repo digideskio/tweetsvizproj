@@ -1,6 +1,8 @@
 package cs886.w14.proj.json;
 
+import java.text.DecimalFormat;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
@@ -55,9 +57,10 @@ public class JsonCompareViewObj {
 		logger.log(Level.INFO, "========== percentage = " + percentage);
 		
 		HashMap<String, ANEWEntry> bagOfWordsForAllTweets = new HashMap<String, ANEWEntry>();
-		TreeSet<ParsedTweet> topFavRetweets = new TreeSet<ParsedTweet>();
+		List<ParsedTweet> topFavRetweets = new ArrayList<ParsedTweet>();
+		logger.log(Level.INFO, "total tweets size= " + tweets.size());
 		for (ParsedTweet t : tweets) {
-			// collect all words appearing in tweets set
+			// collect all words appearing in a tweet
 			for (ANEWEntry e : t.analyzer.words) {
 				if (bagOfWordsForAllTweets.size() != 0 
 						&& bagOfWordsForAllTweets.containsKey(e.getWord())) {
@@ -71,31 +74,39 @@ public class JsonCompareViewObj {
 			if (topFavRetweets.size() < RuntimeParams.NUM_OF_TOP_FAV_RETWEETS) {
 				topFavRetweets.add(t);
 			} else {
-				if (topFavRetweets.lower(t) != null) {
-					topFavRetweets.pollFirst();
-					topFavRetweets.add(t);
+				Collections.sort(topFavRetweets);
+				if (t.compareTo(topFavRetweets.get(0)) > 0) {
+					topFavRetweets.remove(0);
+					if (!topFavRetweets.add(t)) {
+						logger.log(Level.WARNING, "topFavRetweets failed adding: " + t.toString());
+					}
 				}
 			}
 	    }
 		
 		// calulate top common words
-		TreeSet<ANEWEntry> topCommonWords = new TreeSet<ANEWEntry>();
+		List<ANEWEntry> topCommonWords = new ArrayList<ANEWEntry>();
 		Iterator it = bagOfWordsForAllTweets.entrySet().iterator();
+		logger.log(Level.INFO, "bagOfWordsForAllTweets size = " + bagOfWordsForAllTweets.size());
 	    while (it.hasNext()) {
 	        Map.Entry pairs = (Map.Entry)it.next();
 	        ANEWEntry curEntry = (ANEWEntry)pairs.getValue();
 	        if (topCommonWords.size() < RuntimeParams.NUM_OF_TOP_COMMON_WORDS) {
 	        	topCommonWords.add(curEntry);
 			} else {
-				if (topCommonWords.lower(curEntry) != null) {
-					topCommonWords.pollFirst();
-					topCommonWords.add(curEntry);
+				Collections.sort(topCommonWords);
+				if (curEntry.compareTo(topCommonWords.get(0)) > 0) {
+					topCommonWords.remove(0);
+					if(!topCommonWords.add(curEntry)) {
+						logger.log(Level.WARNING, "topCommonWords failed adding: " + curEntry.wordFreqInTweets + ", "+curEntry.getWord());
+					}
 				}
 			}
 	        // avoids a ConcurrentModificationException
 	        it.remove(); 
 	    }
 	    
+	    logger.log(Level.INFO, "topFavRetweets size = " + topFavRetweets.size());
 	    // pass data
 	    Iterator<ParsedTweet> itr = topFavRetweets.iterator();
 	    while(itr.hasNext()){
@@ -103,6 +114,7 @@ public class JsonCompareViewObj {
 	    	topMsg.add(t.originalMsg);
 	    }
 	    
+	    logger.log(Level.INFO, "topCommonWords size = " + topCommonWords.size());
 	    Iterator<ANEWEntry> itr2 = topCommonWords.iterator();
 	    while(itr2.hasNext()){
 	    	ANEWEntry e = itr2.next();
@@ -115,15 +127,11 @@ public class JsonCompareViewObj {
 		double pct = 0;
 		if (tweets != null && tweets.size() != 0) {
 			for (ParsedTweet t : tweets) {
-		    	if (t.analyzer.getFusedVal() > 5) i++;
+		    	if (t.analyzer.getFusedVal() > RuntimeParams.THRESHOLD_OF_SATISFACTORY) i++;
 		    }
 			pct = (double)i / (double)tweets.size();
 		}
-		return pct;
+		DecimalFormat df = new DecimalFormat("#.####");  
+		return Double.valueOf(df.format(pct));
 	}
-	
-	/*private List<String> calTopWords() {
-		int maxWordNum = -1;
-	}
-	*/
 }
