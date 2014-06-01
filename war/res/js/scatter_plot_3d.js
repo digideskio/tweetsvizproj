@@ -254,7 +254,7 @@ function display3dScatterView(sdata) {
                 enabled: true,
                 alpha: 10,
                 beta: 30,
-                depth: 250,
+                depth: 450,
                 viewDistance: 5,
 
                 frame: {
