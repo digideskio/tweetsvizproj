@@ -117,6 +117,7 @@ public class TweetsParser {
 	    logger.log(Level.INFO, "-------size after lang filter =" + tweets.size());
 	    for (ParsedTweet t: tweets) {
 	    	logger.log(Level.INFO, "------- new tweets-------");
+	    	logger.log(Level.INFO, "msg = " + t.originalMsg);
 	    	logger.log(Level.INFO, "bagofwords = " + t.bagOfWords.toString());
 	    	logger.log(Level.INFO, "emoticons = " + t.bagOfEmoticons.toString());
 	    	t.generateANEWAnalyzer(_dic, _emoticon_dic);

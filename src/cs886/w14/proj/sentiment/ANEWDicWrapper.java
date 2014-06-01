@@ -12,7 +12,7 @@ import cs886.w14.proj.sentiment.ANEWEntry;
 
 
 public class ANEWDicWrapper {
-	public static final String []_anewHighlight = {"nervous", "upset", "sad", "unhappy", "depressed", "relaxed", "satisfactory", "pleasure", "happy", "excitement"};
+	public static final String []_anewHighlight = {"nervous", "upset", "sad", "unhappy", "depressed", "relaxed", "satisfied", "pleasure", "happy", "excitement"};
 	public double fqAvg, fqMin, fqMax;
 	
 	private final Logger logger = Logger.getLogger(ANEWDicWrapper.class.getName());
@@ -83,6 +83,8 @@ public class ANEWDicWrapper {
 				entriesHighlighted.add(e);
 			}
 		}
+		logger.log(Level.INFO, "highlights size = " + highlights.size());
+		logger.log(Level.INFO, "entriesHighlighted dic size = " + entriesHighlighted.size());
 	}
 
 }

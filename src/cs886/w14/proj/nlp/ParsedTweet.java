@@ -133,15 +133,12 @@ public class ParsedTweet implements Comparable<ParsedTweet>{
 	 */
 	private String removeUrl(String text)
     {
-		logger.log(Level.INFO, "tweets = " + text);
         String rtn = text;
         String urlPattern = "((https?|ftp|gopher|telnet|file|Unsure|http):((//)|(\\\\))+[\\w\\d:#@%/;$()~_?\\+-=\\\\\\.&]*)";
         Pattern p = Pattern.compile(Pattern.quote(urlPattern), Pattern.CASE_INSENSITIVE);
         // Pattern p = Pattern.compile(urlPattern, Pattern.CASE_INSENSITIVE);
         
         Matcher m = p.matcher(rtn);
-        logger.log(Level.INFO, "Pattern = " + p.toString());
-        logger.log(Level.INFO, "Matcher = " + m.toString());
         int i = 0;
         while (m.find()) {
             rtn = rtn.replaceAll(m.group(i),"").trim();
