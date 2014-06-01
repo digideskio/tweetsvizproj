@@ -15,6 +15,7 @@ $(document).ready(function() {
             }, function(responseText) {
                 console.log(responseText);
                 displayCompareView($.parseJSON(responseText));
+               
                 Pace.stop();
                 /*
 				// TODO
@@ -46,6 +47,7 @@ $(document).ready(function() {
 					sdata = result;
 					console.log(sdata);
 		            display3dScatterView(sdata);
+		            $("#intruphoto").show();
 		            Pace.stop();
 				} catch (err) {
 				  console.log(responseText);

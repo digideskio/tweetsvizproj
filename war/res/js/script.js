@@ -4,6 +4,7 @@ $(function() {
     homeChange();
     $("#infotips").tooltip();
     $("#resultcontent").hide();
+    $("#intruphoto").hide();
     $("#searchfd").submit(function(event) {
         $("#resultcontent").show();
         $('html, body').animate({

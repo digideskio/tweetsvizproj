@@ -196,10 +196,10 @@
 					
 					
 					<!-- TEST 3D SCATTER PLOT -->
-					<img style="padding-left:10%" src="res/media/images/intru.png"  align="middle"></img>​
+					​
 					<div id="container" style="height: 700px"></div>
 					
-					
+					<img id="intruphoto" style="padding-left:15%" src="res/media/images/intru.png"  align="middle"></img>
 					
 				</div>
 				<!-- / Tab 5 content -->
