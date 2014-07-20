@@ -56,27 +56,22 @@
 					<span></span>
 				</div>
 				<h3>#Commerical Focus</h3>
-				<p>Unlike other sentiment analyser, our tweet sentiment
-					visualiser has a unique focus on commercial products. bla bla bla
-					bla bla bla bla bla bla</p>
+				<p>Unlike other sentiment analysis toolkit, our tweet sentiment
+					visualizer has a unique focus on commercial products. Check it out using 'Compare'!</p>
 			</li>
 			<li class="ui animate do-anim">
 				<div class="icon">
 					<span></span>
 				</div>
 				<h3>#Hybrid Analysis</h3>
-				<p>bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla
-					bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla
-					bla bla bla bla</p>
+				<p>With the help of Affective dictionary (ANEW), we retrieve three scores for each of the words: valance(pleasure), arousal, and dominance and fuse these three dimension delicately into a final score to achieve best accuracy.</p>
 			</li>
 			<li class="design animate do-anim">
 				<div class="icon">
 					<span></span>
 				</div>
 				<h3>#Rich Infographics</h3>
-				<p>bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla
-					bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla
-					bla bla bla bla</p>
+				<p>We use an elagant charting framework in jQuery to best visualize the data we generated and deliver to you in a visually enjoyable and emotionally pleasing way.</p>
 			</li>
 		</ul>
 		</section>
@@ -228,8 +223,7 @@
 				<h3>Need to be done</h3>
 			</div>
 			<div class="form-group">
-				<h3>Find out how this works.</h3>
-
+				<h3>Find out how this works. <p>Mail to <br/><a href="mailto:y57luo@uwaterloo.ca">her</a><a> or</a> <a href="mailto:mingyu.liu@uwaterloo.ca">him!</a></p></h3>
 
 			</div>
 			</section>

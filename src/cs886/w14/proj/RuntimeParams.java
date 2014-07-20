@@ -13,7 +13,7 @@ public class RuntimeParams {
 	/**
 	 * maximum num of tweets within one query
 	 */
-	public static final int MAX_NUM_OF_TWEETS = 128;
+	public static final int MAX_NUM_OF_TWEETS = 512;
 	public static final int MAX_QUERY_TIMES = 20;
 	/**
 	 * The message displayed to the user when the server cannot be reached or

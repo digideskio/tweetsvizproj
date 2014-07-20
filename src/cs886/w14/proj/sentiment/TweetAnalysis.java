@@ -23,7 +23,7 @@ public class TweetAnalysis {
 	}
 
 	public double getFusedVal() {
-		return (getAro() + getVal()) / 2;
+		return (getAro() + getVal()+getDom()) / 3;
 	}
 
 	public void addWord(ANEWEntry word) {
